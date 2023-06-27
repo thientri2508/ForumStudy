@@ -1,0 +1,5 @@
+$p = intval($t[1]);
+$list = Product::getListCollectionsByPage($idCategory, $p);
+$amount = Product::getAmountByCategory($idCategory);
+
+collections.blade.php

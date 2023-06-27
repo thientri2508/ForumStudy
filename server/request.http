@@ -1,0 +1,77 @@
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "thientri2508",
+    "password": "123456"
+}
+
+
+###
+
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "tantrung",
+    "password": "123456",
+    "role": "USER"
+}
+
+###
+
+POST http://localhost:5000/api/topics
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc3Njk1NTB9.kkLgGDoHQtdg35V_CAWdfzdJqivCgeEvY2Ffr35lMcI
+
+{
+    "title": "Đại Số",
+    "description": "abc xyz",
+    "image": "topic.jpg"
+}
+
+###
+
+GET http://localhost:5000/api/comments
+Content-Type: application/json
+
+
+###
+
+POST http://localhost:5000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc3NjA2NTJ9.20c6fwT7AFK2X_sm9lCVZArNtPqs9cy21JJdJhwPa0s
+
+{
+    "content": "Học lập trình từ đâu?",
+    "topic": "649197c37744ca82128efdca"
+}
+
+###
+
+GET http://localhost:5000/api/posts/mypost
+Content-Type: application/json
+Authorization: Bearer 
+
+
+###
+
+GET http://localhost:5000/api/posts/idPost/6491e3d3cb46c6447820bb67
+Content-Type: application/json
+
+###
+
+POST http://localhost:5000/api/comments/6491e3d3cb46c6447820bb67
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "content": "quá hay!!!"
+}
+
+###
+
+GET http://localhost:5000/api/comments/6491e3d3cb46c6447820bb67
+Content-Type: application/json
+
+###
