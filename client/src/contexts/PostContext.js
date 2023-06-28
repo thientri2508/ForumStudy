@@ -75,7 +75,7 @@ const PostContextProvider = ({ children }) => {
 		try {
 			const response = await axios.get(`${apiUrl}/posts/idPost/${postId}`)
 			if (response.data.success) {
-				dispatch({ type: GET_POST_BY_ID_SUCCESS, payload: response.data.post })
+				dispatch({ type: GET_POST_BY_ID_SUCCESS, payload: response.data.post }) 
 			}
 		} catch (error) {
 			dispatch({ type: GET_POST_BY_ID_FAIL })

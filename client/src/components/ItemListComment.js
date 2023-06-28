@@ -15,7 +15,7 @@ const ItemListComment = ({comment, socket}) => {
     const DeteleComment = async commentId => {
         try {
 			const DeteleComment = await deleteComment(commentId)
-            // socket.emit("commented", DeteleComment)
+            socket.emit("commented", "DeteleComment")
 		} catch (error) {
 			console.log(error)
 		}

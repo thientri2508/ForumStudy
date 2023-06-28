@@ -13,21 +13,21 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "tantrung",
+    "username": "nguyenb",
     "password": "123456",
     "role": "USER"
 }
 
 ###
 
-POST http://localhost:5000/api/topics
+POST http://localhost:5000/api/posts
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc3Njk1NTB9.kkLgGDoHQtdg35V_CAWdfzdJqivCgeEvY2Ffr35lMcI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc5NDE0Mjh9.QhIYgeiiArGmcn5ZM7mtksqvOimeN_d80jbhy_CetsA
 
 {
-    "title": "Đại Số",
-    "description": "abc xyz",
-    "image": "topic.jpg"
+    "content": "Tiếng anh cho người mới bắt đầu",
+    "file": "image.png",
+    "topic": "6499bad7b0ac094fa8ac5c3f"
 }
 
 ###

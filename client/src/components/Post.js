@@ -12,13 +12,12 @@ import ListComment from './ListComment';
 import Interact from './Interact';
 import io from 'socket.io-client';
 
-const Post = () => {
-
-    const socket = io('http://localhost:4000');
+const socket = io('http://localhost:5000');
     socket.on("connect", () => {
         console.log("connected")
     })
-    
+
+const Post = () => {
     const [popup, setPopup] = useState(false)
 
     const {
@@ -51,7 +50,7 @@ const Post = () => {
 		try {
             const newComment = { content: comment, post: post._id }
 			const commentData = await addComment(newComment)
-            socket.emit("commented", commentData)
+            socket.emit("commented", "commentData")
             setComment("")
 		} catch (error) {
 			console.log(error)
@@ -128,6 +127,14 @@ const Post = () => {
             interact = ( <Interact userId={user._id} postId={postId}></Interact> )
         }
 
+        var listImage = post.file.split("/")
+        if(listImage.length == 1) {
+            listImage = []
+        }else {
+            listImage.pop()
+        }
+        console.log(listImage)
+
 		body = (
             <div className='container'>
                 <div className='post-detail'>
@@ -157,6 +164,12 @@ const Post = () => {
 
                     <p className='post-detail-content'>{post.content}</p>
 
+                    <div className='post-detail-image'>
+                        {listImage.map((img, index) => (
+                            <img src={`http://localhost:5000/api/upload/file/${img}`} alt="Image" />
+                        ))}
+                    </div>
+
                     <ul className='post-detail-interactAmount'>
                         {amoutLike}
                         <li>
@@ -173,7 +186,7 @@ const Post = () => {
                     <textarea rows={2} value={comment} onChange={handleChange} className='text-comment' placeholder='Write a comments...'></textarea>
                     <input type="submit" class="btn-comment" value="Publish" onClick={sendComment}></input>
 
-                    <ListComment postId={postId} socket={socket}></ListComment>
+                    <ListComment postId={postId} socket={socket} ></ListComment>
                 </div>
 
             </div>

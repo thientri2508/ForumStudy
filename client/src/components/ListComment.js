@@ -11,11 +11,15 @@ const ListComment = ({postId, socket}) => {
 		getComments
 	} = useContext(CommentContext)
 
-    useEffect(() => {getComments(postId);}, [])
+    useEffect(() => {
+        getComments(postId);
+        socket.on("updateComment", (comment) => {
+            getComments(postId)
+            console.log("newcomment")
+        });
+    }, [])
 
-    socket.on("updateComment", (comment) => {
-        getComments(postId)
-    })
+    
 
     let body = null
 
@@ -34,7 +38,7 @@ const ListComment = ({postId, socket}) => {
         body = (
             <>
                 {comments.map(comment => (
-                    <ItemListComment key={comment._id} comment={comment} socket={socket}></ItemListComment>
+                    <ItemListComment key={comment._id} comment={comment} socket={socket} ></ItemListComment>
                 ))}
             </>
         )

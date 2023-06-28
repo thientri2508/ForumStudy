@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const verifyToken = require('../middleware/auth')
-
 const Post = require('../models/Post')
 
 // @route GET api/posts
@@ -33,6 +32,7 @@ router.get('/idTopic/:id', async (req, res) => {
 // @route GET api/posts
 // @desc Get post by id
 // @access Public
+// http://localhost:5000/api/upload/file/picture.png
 router.get('/idPost/:id', async (req, res) => {
 	try {
 		const post = await Post.findById(req.params.id).populate('user', ['username']).populate('topic', ['title'])
@@ -48,7 +48,7 @@ router.get('/idPost/:id', async (req, res) => {
 // @access Private
 router.get('/myposts', verifyToken, async (req, res) => {
 	try {
-		const posts = await Post.find({ user: req.userId }).populate('user', [
+		const posts = await Post.find({ user: req.userId }).sort({ _id: -1 }).populate('user', [
 			'username'
 		])
 		res.json({ success: true, posts })
@@ -62,7 +62,7 @@ router.get('/myposts', verifyToken, async (req, res) => {
 // @desc Create post
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
-	const { content, topic } = req.body
+	const { content, file, topic } = req.body
 
 	// Simple validation
 	if (!content)
@@ -73,6 +73,7 @@ router.post('/', verifyToken, async (req, res) => {
 	try {
 		const newPost = new Post({
 			content,
+			file,
 			topic,
 			user: req.userId
 		})
@@ -90,7 +91,7 @@ router.post('/', verifyToken, async (req, res) => {
 // @desc Update post
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
-	const { content, topic } = req.body
+	const { content, file, topic } = req.body
 
 	// Simple validation
 	if (!content)
@@ -101,6 +102,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 	try {
 		let updatedPost = {
 			content,
+			file,
 			topic
 		}
 

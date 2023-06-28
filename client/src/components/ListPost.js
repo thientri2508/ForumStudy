@@ -26,6 +26,7 @@ const ListPost = () => {
             return window.location.href = "/auth";
         } else{
             setShowAddPostModal(true)
+            document.documentElement.style.overflow = 'hidden';
         }
     }
 

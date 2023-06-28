@@ -61,8 +61,8 @@ const CommentContextProvider = ({ children }) => {
 	const deleteComment = async commentId => {
 		try {
 			const response = await axios.delete(`${apiUrl}/comments/${commentId}`)
-			if (response.data.success)
-				dispatch({ type: DELETE_COMMENT, payload: commentId })
+			// if (response.data.success)
+			// 	dispatch({ type: DELETE_COMMENT, payload: commentId })
 		} catch (error) {
 			console.log(error)
 		}
