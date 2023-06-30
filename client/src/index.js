@@ -13,6 +13,7 @@ import AuthContextProvider  from './contexts/AuthContext'
 import TopicContextProvider  from './contexts/TopicContext'
 import PostContextProvider  from './contexts/PostContext'
 import CommentContextProvider  from './contexts/CommentContext'
+import ReplyContextProvider  from './contexts/ReplyContext'
 import LikeContextProvider  from './contexts/LikeContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +23,7 @@ root.render(
   <PostContextProvider>
   <LikeContextProvider>
   <CommentContextProvider>
+  <ReplyContextProvider>
 
     <React.StrictMode>
       <BrowserRouter>
@@ -40,6 +42,7 @@ root.render(
       </BrowserRouter> 
     </React.StrictMode>
 
+    </ReplyContextProvider>
     </CommentContextProvider>
     </LikeContextProvider>
     </PostContextProvider>

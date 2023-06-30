@@ -8,6 +8,7 @@ import { faXmark, faCircleUser, faL } from '@fortawesome/free-solid-svg-icons'
 import DropdownSelect from './DropdownSelect';
 import ImageUpload from './ImageUpload';
 import axios from 'axios'
+import { apiUrl } from '../contexts/constants'
 
 const AddPostModal = () => {
 
@@ -132,11 +133,12 @@ const AddPostModal = () => {
 			console.log(error)
 		}
         
+        var nameFiles = PostForm.file.split('/')
         for(let i=0 ; i<selectedFiles.length ; i++){
             const formData = new FormData()
             formData.set("avatar", selectedFiles[i])
             try {
-                await axios.post('http://localhost:5000/api/upload', formData)
+                await axios.post(`${apiUrl}/upload/${nameFiles[i]}`, formData)
             } catch (error) {
                 console.log(error)
             }

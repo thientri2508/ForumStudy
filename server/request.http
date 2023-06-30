@@ -20,14 +20,14 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/api/posts
+POST http://localhost:5000/api/replies
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc5NDE0Mjh9.QhIYgeiiArGmcn5ZM7mtksqvOimeN_d80jbhy_CetsA
 
 {
-    "content": "Tiếng anh cho người mới bắt đầu",
-    "file": "image.png",
-    "topic": "6499bad7b0ac094fa8ac5c3f"
+    "content": "well done",
+    "post": "649c0a5024537caba3ac9a5f",
+    "comment": "649c0a7e24537caba3ac9a81"
 }
 
 ###

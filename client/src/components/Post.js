@@ -5,12 +5,15 @@ import { faCircleUser, faEllipsisVertical, faSliders, faDeleteLeft, faAngleLeft 
 import { useContext, useEffect, useState } from 'react'
 import { PostContext } from '../contexts/PostContext'
 import { CommentContext } from '../contexts/CommentContext'
+import { ReplyContext } from '../contexts/ReplyContext';
 import { AuthContext } from '../contexts/AuthContext'
 import { LikeContext } from '../contexts/LikeContext'
 import Loader from './Loader';
 import ListComment from './ListComment';
+import ImageComponent from './ImageComponent';
 import Interact from './Interact';
 import io from 'socket.io-client';
+import {apiUrl} from '../contexts/constants'
 
 const socket = io('http://localhost:5000');
     socket.on("connect", () => {
@@ -18,6 +21,7 @@ const socket = io('http://localhost:5000');
     })
 
 const Post = () => {
+    
     const [popup, setPopup] = useState(false)
 
     const {
@@ -32,6 +36,11 @@ const Post = () => {
 		likeState: { likes, likesLoading },
 		getLikes
 	} = useContext(LikeContext)
+
+    const {
+		replyState: { replies, repliesLoading },
+		getReplies
+	} = useContext(ReplyContext)
 
     const {
 		authState: { isAuthenticated, user }
@@ -63,6 +72,11 @@ const Post = () => {
     useEffect(() => {
         getPostById(postId);
         getLikes(postId);
+        getReplies(postId);
+        socket.on("updateReply", (comment) => {
+            getReplies(postId)
+            console.log("newReply")
+        });
     }, [])
 
     // socket.on("updateLike", (like) => {
@@ -103,7 +117,7 @@ const Post = () => {
 
     let body = null
 
-    if (postsLoading) {
+    if (postsLoading || repliesLoading) {
 		body = (
 			<Loader></Loader>
 		)
@@ -133,7 +147,6 @@ const Post = () => {
         }else {
             listImage.pop()
         }
-        console.log(listImage)
 
 		body = (
             <div className='container'>
@@ -166,10 +179,9 @@ const Post = () => {
 
                     <div className='post-detail-image'>
                         {listImage.map((img, index) => (
-                            <img src={`http://localhost:5000/api/upload/file/${img}`} alt="Image" />
+                           <ImageComponent imageUrl={`${apiUrl }/upload/file/${img}`} key={index}></ImageComponent>
                         ))}
                     </div>
-
                     <ul className='post-detail-interactAmount'>
                         {amoutLike}
                         <li>
@@ -184,9 +196,9 @@ const Post = () => {
 
                     <h3>Comments</h3>
                     <textarea rows={2} value={comment} onChange={handleChange} className='text-comment' placeholder='Write a comments...'></textarea>
-                    <input type="submit" class="btn-comment" value="Publish" onClick={sendComment}></input>
+                    <input type="submit" className="btn-comment" value="Publish" onClick={sendComment}></input>
 
-                    <ListComment postId={postId} socket={socket} ></ListComment>
+                    <ListComment postId={postId} socket={socket} replies={replies} post={postId} ></ListComment>
                 </div>
 
             </div>

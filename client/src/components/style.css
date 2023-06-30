@@ -308,6 +308,17 @@
     z-index: 3;
     border-bottom: ridge 1px #D4D4D4;
 }
+.curve{
+    position: absolute;
+    width: 30px;
+    height: 0px;
+    top: 0px;
+    left: -30px;
+    border: solid 3px #ddd;
+    border-bottom-left-radius: 8px;
+    border-top: none;
+    border-right: none;
+}
 .footer-end{
     margin-top: 115px;
     width: 100%;
@@ -617,7 +628,7 @@ to {
 }
 }
 .post-detail{
-    width: 1000px;
+    width: 770px;
     margin: 0 auto;
     margin-top: 20px;
     padding: 35px;
@@ -669,7 +680,7 @@ to {
 .post-detail-infor{
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 3px;
 }
 .post-detail-content{
     margin-top: 35px;
@@ -682,10 +693,11 @@ to {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 .post-detail-image > img{
     cursor: pointer;
+    max-width: 100%;
 }
 .post-detail-interactAmount{
     margin-top: 25px;
@@ -720,11 +732,11 @@ to {
     background: #eee;
 }
 .text-comment{
-    margin-top: 30px;
+    margin-top: 15px;
     outline: none;
     width: 100%;
     height: 80px;
-    border: solid 1px;
+    border: solid 1px #bfbfbf;
     padding: 15px;
     font-size: 18px; 
     color: black;
@@ -740,7 +752,8 @@ to {
     transition: all 0.2s linear;
 } */
 .btn-comment{
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
     width: 85px;
     height: 35px;
     border: none;
@@ -752,11 +765,65 @@ to {
 .list-comment-item{
     background: #eee;
     border-radius: 20px;
-    margin-top: 20px;
-    padding: 15px 20px 15px 20px;
+    margin-top: 10px;
+    padding: 10px 15px 10px 15px;
+}
+.btn-reply{
+    cursor: pointer;
+    margin-left: 55px;
+    margin-top: 4px;
+}
+.btn-reply:hover{
+    text-decoration:underline;
+}
+.reply-form{
+    background: #eee;
+    border-radius: 20px;
+    padding: 10px 15px 10px 15px;
+    margin-left: 55px;
+    display: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+}
+.inp-reply{
+    all: unset;
+    width: 100%;
+    height: 36px;
+    margin-top: 2px;
+    word-break: break-all;
+}
+.sendReply-none{
+    margin-top: 5px;
+    cursor: not-allowed;
+    width: 30px;
+    height: 30px;
+    line-height: 34px;
+    border-radius: 50%;
+    text-align: center;
+    float: right;
+}
+.sendReply{
+    all: unset;
+    margin-top: 5px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    line-height: 34px;
+    border-radius: 50%;
+    text-align: center;
+    color: blue;
+    float: right;
+    display: none;
+}
+.sendReply:hover{
+    background: #ddd;
+}
+.inp-reply::placeholder{
+    color: #000;
 }
 .content-comment{
-    margin-top: 15px;
+    margin-top: 8px;
     margin-left: 40px;
     word-break: break-all;
 }
@@ -1010,7 +1077,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     width: 5px;
 }
 #input-title::-webkit-scrollbar-thumb {
-    background-image: linear-gradient(to bottom, #923192, #E78722);
+    background-image: linear-gradient(to bottom, #ddd, #ddd);
     border-radius: 100rem;
 }
 .AddIcon{
@@ -1027,6 +1094,12 @@ animation: swing2 var(--uib-speed) linear infinite;
 }
 .ChooseOption{
     display: flex;
+}
+.fileChoose{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 #selectFile, #selectIcon, #selectGif{
     width: 45px;

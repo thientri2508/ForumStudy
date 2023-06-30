@@ -1,39 +1,57 @@
 import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faL, faPen, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { v4 as uuidv4 } from 'uuid'
 
 const ImageUpload = ({ selectedImages, setSelectedImages, handleClearImages, setOff, setSelectedFiles, setPostForm, PostForm }) => {
 
     const handleImageSelect = (event) => {
         const files = event.target.files;
-        const selectedImagesArray = [];
         const selectedFiles = [];
-        let nameFile = ''
-    
-        for (let i = 0; i < files.length; i++) {
+        let nameFile = '';
+      
+        const loadImage = (file) => {
+          return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+      
+            reader.onload = (e) => {
+              resolve(e.target.result);
+            };
+      
+            reader.onerror = (error) => {
+              reject(error);
+            };
+      
+            reader.readAsDataURL(file);
+          });
+        };
+      
+        const processFiles = async () => {
+          const promises = [];
+      
+          for (let i = 0; i < files.length; i++) {
             const file = files[i];
-            if(file.size > 20971520) {
-                console.log("full")
-            } else{
-                selectedFiles.push(file);
-                nameFile += file.name + '/';
-            
-                const reader = new FileReader();
-    
-                reader.onload = (e) => {
-                    selectedImagesArray.push(e.target.result);
-    
-                    // if (selectedImagesArray.length === files.length) {
-                    //     setSelectedImages(selectedImagesArray)
-                    // }
-                    setSelectedImages(selectedImagesArray)
-                };
-    
-                reader.readAsDataURL(files[i]);
+            if (file.size > 20971520) {
+              console.log("full");
+            } else {
+              selectedFiles.push(file);
+              nameFile += uuidv4() + '.png/';
+              const promise = loadImage(file);
+              promises.push(promise);
             }
-        }
-        setSelectedFiles(selectedFiles)
-        setPostForm({...PostForm, file: nameFile})
+          }
+      
+          try {
+            const results = await Promise.all(promises);
+            setSelectedFiles(selectedFiles);
+            setSelectedImages(results);
+            setPostForm({ ...PostForm, file: nameFile });
+          } catch (error) {
+            console.error("Lỗi xử lý file:", error);
+          }
+        };
+      
+        processFiles();
       };
 
     const fileInputRef = useRef(null);
@@ -51,7 +69,7 @@ const ImageUpload = ({ selectedImages, setSelectedImages, handleClearImages, set
                 <input type="file" name='avatar' accept='.png, .jpg, .jpeg, .mp4' multiple onChange={handleImageSelect} id='ChooseFile' ref={fileInputRef} style={{display : 'none'}} />
                 <h4 onClick={handleOpenFile} className='OpenChooseFile2'><FontAwesomeIcon icon={faPen} />&nbsp; Edit All</h4>
                 <div id='CloseChooseFile2' onClick={handleClearImages}><FontAwesomeIcon icon={faXmark} size='lg' /></div>
-                <div>
+                <div className='fileChoose'>
                     {selectedImages.map((image, index) => (
                     <img key={index} src={image} alt={`Image ${index}`} style={{ width: '200px', height: '200px'}} />
                     ))}

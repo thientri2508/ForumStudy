@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react'
 import { CommentContext } from '../contexts/CommentContext'
 import DotLoading from './DotLoading';
 
-const ListComment = ({postId, socket}) => {
+const ListComment = ({postId, socket, replies, post}) => {
 
     const {
 		commentState: { comments, commentsLoading },
@@ -38,7 +38,7 @@ const ListComment = ({postId, socket}) => {
         body = (
             <>
                 {comments.map(comment => (
-                    <ItemListComment key={comment._id} comment={comment} socket={socket} ></ItemListComment>
+                    <ItemListComment key={comment._id} comment={comment} socket={socket} replies={replies} post={post} ></ItemListComment>
                 ))}
             </>
         )

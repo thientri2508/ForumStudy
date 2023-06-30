@@ -9,9 +9,9 @@ const filesFolder = path.join(__dirname, "files")
 
 router.use(fileUpload())
 
-router.post('/', async (req, res) => {
+router.post('/:filename', async (req, res) => {
 	const { avatar } = req.files
-	await avatar.mv(path.join(assetsFolder, avatar.name))
+	await avatar.mv(path.join(assetsFolder, req.params.filename))
 	res.status(200).json({ success: true })
 })
 

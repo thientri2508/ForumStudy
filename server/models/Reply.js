@@ -13,6 +13,10 @@ const ReplySchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'users'
 	},
+	post: {
+		type: Schema.Types.ObjectId,
+		ref: 'posts'
+	},
     comment: {
 		type: Schema.Types.ObjectId,
 		ref: 'comments'

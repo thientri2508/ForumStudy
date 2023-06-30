@@ -10,6 +10,7 @@ const topicRouter = require('./routes/topic')
 const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
 const commentRouter = require('./routes/comment')
+const replyRouter = require('./routes/reply')
 const likeRouter = require('./routes/like')
 const uploadRouter = require('./upload')
 
@@ -62,6 +63,7 @@ app.use('/api/posts', postRouter)
 app.use('/api/comments', commentRouter)
 app.use('/api/likes', likeRouter)
 app.use('/api/upload', uploadRouter)
+app.use('/api/replies', replyRouter)
 
 const PORT = process.env.PORT || 5000
 
@@ -71,5 +73,10 @@ io.on("connection", (socket) => {
 	socket.on('commented', (comment) => {
 		socket.emit('updateComment', comment)
 		socket.broadcast.emit('updateComment', comment)
+	})
+
+	socket.on('reply', (reply) => {
+		socket.emit('updateReply', reply)
+		socket.broadcast.emit('updateReply', reply)
 	})
 })
