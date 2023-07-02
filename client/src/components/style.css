@@ -235,7 +235,7 @@
 .bannerBottom{
     margin-top: -75px;
     width: 100%;
-    background: #EBC1BA;
+    background: #4C696C;
     height: 360px;
     padding-top: 145px;
 }
@@ -291,7 +291,7 @@
     width: 135px;
     font-size: 18px;
     font-weight: bold;
-    background: #EBC1BA;
+    background: #4C696C;
     border: solid 1px #000;
     border-left: none;
     transition: all 0.3s linear;
@@ -318,6 +318,7 @@
     border-bottom-left-radius: 8px;
     border-top: none;
     border-right: none;
+    transition: all 0.3s ease-in-out;
 }
 .footer-end{
     margin-top: 115px;
@@ -929,7 +930,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     position: absolute;
     right: 20px;
     top: 10px;
-    background: #ddd;
+    background: #000;
     width: 37px;
     height: 37px;
     border-radius: 50%;
@@ -939,7 +940,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     color: white;
 }
 .close-AddPostModal:hover{
-    background: #bbb;
+    background: #4f4f4f;
 }
 .AddPostModal-head{
     width: 100%;
@@ -1015,7 +1016,8 @@ animation: swing2 var(--uib-speed) linear infinite;
     padding-top: 55px;
 }
 .OpenChooseFile2{
-    background: #ddd;
+    background: #000;
+    color: #fff;
     border-radius: 5px;
     position: absolute;
     z-index: 5;
@@ -1027,14 +1029,17 @@ animation: swing2 var(--uib-speed) linear infinite;
     text-align: center;
     line-height: 35px;
 }
+.OpenChooseFile2:hover{
+    background: #4f4f4f;
+}
 #CloseChooseFile2{
-    background: #ddd;
+    background: #000;
     border-radius: 50%;
     position: absolute;
     z-index: 5;
     cursor: pointer;
     top: 20px;
-    right: 15px;
+    right: 17px;
     width: 30px;
     text-align: center;
     color: #fff;
@@ -1042,10 +1047,10 @@ animation: swing2 var(--uib-speed) linear infinite;
     line-height: 30px;
 }
 #CloseChooseFile1:hover{
-    background: #bbb;
+    background: #4f4f4f;
 }
 #CloseChooseFile1{
-    background: #fff;
+    background: #000;
     border-radius: 50%;
     position: absolute;
     z-index: 5;
@@ -1059,7 +1064,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     line-height: 30px;
 }
 #CloseChooseFile2:hover{
-    background: #bbb;
+    background: #4f4f4f;
 }
 /* #AddPostModal-form::before{
     content: "";
@@ -1263,6 +1268,47 @@ animation: swing2 var(--uib-speed) linear infinite;
     top: calc(50% - 1.25em);
     left: calc(50% - 1.25em);
    }
+
+   .error {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #EF665B;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px -3px #111;
+  }
+  
+  .error__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+  
+  .error__icon path {
+    fill: #fff;
+  }
+  
+  .error__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .error__close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
+  .error__close path {
+    fill: #fff;
+  }
 
 @media screen and (min-width: 767px) and (max-width: 1023px) {
     .item-topic{

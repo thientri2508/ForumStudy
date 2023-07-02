@@ -11,9 +11,19 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
+	fullname: {
+		type: String
+	},
+	avatar: {
+		type: String
+	},
 	role: {
 		type: String,
 		enum: ['ADMIN', 'USER']
+	},
+	signinWith: {
+		type: String,
+		enum: ['direct', 'indirect']
 	},
 	createdAt: {
 		type: Date,

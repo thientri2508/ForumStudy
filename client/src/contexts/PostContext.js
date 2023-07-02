@@ -88,7 +88,7 @@ const PostContextProvider = ({ children }) => {
 			const response = await axios.post(`${apiUrl}/posts`, newPost)
 			if (response.data.success) {
 				dispatch({ type: ADD_POST, payload: response.data.post })
-				return response.data 
+				return response.data.post
 			}
 		} catch (error) {
 			return error.response.data

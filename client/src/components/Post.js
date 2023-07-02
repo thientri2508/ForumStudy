@@ -10,7 +10,6 @@ import { AuthContext } from '../contexts/AuthContext'
 import { LikeContext } from '../contexts/LikeContext'
 import Loader from './Loader';
 import ListComment from './ListComment';
-import ImageComponent from './ImageComponent';
 import Interact from './Interact';
 import io from 'socket.io-client';
 import {apiUrl} from '../contexts/constants'
@@ -160,7 +159,7 @@ const Post = () => {
                                 <li><FontAwesomeIcon icon={faCircleUser} size='2xl' /></li>
                                 <li>
                                     <ul className='post-detail-infor'>
-                                        <li><b>{post.user.username}</b></li>
+                                        <li><b>{post.user.fullname}</b></li>
                                         <li><i>{date.reverse().join("-")}</i></li>
                                     </ul>
                                 </li>
@@ -179,8 +178,10 @@ const Post = () => {
 
                     <div className='post-detail-image'>
                         {listImage.map((img, index) => (
-                           <ImageComponent imageUrl={`${apiUrl }/upload/file/${img}`} key={index}></ImageComponent>
-                        ))}
+                            img.includes('.png') ? (<img src={`${apiUrl }/upload/file/${img}`} key={index}></img>) :
+                            (<video src={`${apiUrl }/upload/file/${img}`} key={index} preload="metadata" style={{maxWidth: '100%'}} controls></video>)
+                        )
+                        )}
                     </div>
                     <ul className='post-detail-interactAmount'>
                         {amoutLike}

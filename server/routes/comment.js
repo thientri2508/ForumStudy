@@ -9,7 +9,7 @@ const Comment = require('../models/Comment')
 // @access Public
 router.get('/:id', async (req, res) => {
 	try {
-		const comments = await Comment.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['username'])
+		const comments = await Comment.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname'])
 		res.json({ success: true, comments })
 	} catch (error) {
 		console.log(error)

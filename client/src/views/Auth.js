@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Auth.css';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
@@ -6,20 +6,9 @@ import logoIcon from '../image/logo.jpg';
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext } from 'react'
 import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
 
 const Auth = () => {
-    
-    const myMenuFunction = () => {
-        var i = document.getElementById("navMenu");
-    
-        if(i.className === "nav-menu") {
-            i.className += " responsive";
-        } else {
-            i.className = "nav-menu";
-        }
-    }
-
-    
     const login = () => {
         var a = document.getElementById("loginBtn");
         var b = document.getElementById("registerBtn");
@@ -52,6 +41,11 @@ const Auth = () => {
 		authState: { authLoading, isAuthenticated }
 	} = useContext(AuthContext)
 
+    const [error, setError] = useState({
+        loading: false,
+        message: ''
+    })
+
     let body
 
 	if (authLoading)
@@ -63,8 +57,8 @@ const Auth = () => {
 		body = (
 			<div className="form-box">
 
-                <LoginForm register={register}></LoginForm>
-                <RegisterForm login={login}></RegisterForm>
+                <LoginForm></LoginForm>
+                <RegisterForm error={error} setError={setError}></RegisterForm>
 
             </div>
 		)
@@ -76,22 +70,20 @@ const Auth = () => {
                     <a href='/'>
                         <div className="nav-logo">
                             <img src={logoIcon} className='logo'></img>
-                            <p>Người Bạn Toán</p>
                         </div>
                     </a>
 
+                    { error.loading ? (<ErrorMessage message={error.message}></ErrorMessage>) : (<></>) }
+
                     <div className="nav-button">
-                        <button className="btn white-btn" id="loginBtn" onClick={() => {login()}}>Đăng nhập</button>
-                        <button className="btn" id="registerBtn" onClick={() => {register()}}>Đăng kí</button>
-                    </div>
-                    <div className="nav-menu-btn">
-                        <i className="bx bx-menu" onClick={() => {myMenuFunction()}}></i>
+                        <button className="btn white-btn" id="loginBtn" onClick={() => {login()}}>Sign In</button>
+                        <button className="btn" id="registerBtn" onClick={() => {register()}}>Sign Up</button>
                     </div>
                 </nav>
                 {body}
                 
             </div>
-        </div>
+        </div> 
     );
 };
 

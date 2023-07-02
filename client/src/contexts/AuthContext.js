@@ -58,6 +58,25 @@ const AuthContextProvider = ({ children }) => {
 		}
 	}
 
+	// Login with google
+	const loginWithGoogle = async userForm => {
+		try {
+			const response = await axios.post(`${apiUrl}/auth/login/google`, userForm)
+			if (response.data.success)
+				localStorage.setItem(
+					LOCAL_STORAGE_TOKEN_NAME,
+					response.data.accessToken
+				)
+
+			await loadUser()
+
+			return response.data
+		} catch (error) {
+			if (error.response.data) return error.response.data
+			else return { success: false, message: error.message }
+		}
+	}
+
 	// Register
 	const registerUser = async userForm => {
 		try {
@@ -87,7 +106,7 @@ const AuthContextProvider = ({ children }) => {
 	}
 
 	// Context data
-	const authContextData = { loginUser, registerUser, logoutUser, authState }
+	const authContextData = { loginUser, loginWithGoogle, registerUser, logoutUser, authState }
 
 	// Return provider
 	return (

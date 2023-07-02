@@ -32,7 +32,7 @@ const Header = () => {
                     <ul className='list'>
                         <li className='menu-list-item'>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="xl" />&nbsp;&nbsp;&nbsp;&nbsp;{user.username}</li>
+                        <li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="xl" />&nbsp;&nbsp;&nbsp;&nbsp;{user.fullname}</li>
                         <li className='logout' onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} size="xl" /></li>
                         <li className='menu-list-item'>
                             <ul className='share'>

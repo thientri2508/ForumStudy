@@ -33,27 +33,6 @@ const connectDB = async () => {
 
 connectDB()
 
-// const io = new Server({ 
-// 	cors: {
-// 		origin: "*",
-// 	}
-// })
-
-// io.on("connection", (socket) => {
-// 	socket.on('commented', (comment) => {
-// 		socket.emit('updateComment', comment)
-// 		socket.broadcast.emit('updateComment', comment)
-// 	})
-
-// 	// socket.on('liked', (like) => {
-// 	// 	socket.emit('updateLike', like)
-// 	// 	socket.broadcast.emit('updateLike', like)
-// 	// })
-// })
-
-// io.listen(4000)
-
-
 app.use(express.json())
 app.use(cors())
 
@@ -79,4 +58,5 @@ io.on("connection", (socket) => {
 		socket.emit('updateReply', reply)
 		socket.broadcast.emit('updateReply', reply)
 	})
+
 })

@@ -2,16 +2,14 @@ const express = require('express')
 const router = express.Router()
 const fileUpload = require('express-fileupload')
 const path = require('path')
-const sharp = require('sharp');
 
 const assetsFolder = path.join(__dirname, "assets")
-const filesFolder = path.join(__dirname, "files")
 
 router.use(fileUpload())
 
-router.post('/:filename', async (req, res) => {
+router.post('/', async (req, res) => {
 	const { avatar } = req.files
-	await avatar.mv(path.join(assetsFolder, req.params.filename))
+	await avatar.mv(path.join(assetsFolder, avatar.name))
 	res.status(200).json({ success: true })
 })
 

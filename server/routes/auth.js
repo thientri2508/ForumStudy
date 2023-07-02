@@ -25,7 +25,7 @@ router.get('/', verifyToken, async (req, res) => {
 // @desc Register user
 // @access Public
 router.post('/register', async (req, res) => {
-	const { username, password, role } = req.body
+	const { username, password, fullname, avatar, role, signinWith } = req.body
 
 	// Simple validation
 	if (!username || !password)
@@ -44,7 +44,8 @@ router.post('/register', async (req, res) => {
 
 		// All good
 		const hashedPassword = await argon2.hash(password)
-		const newUser = new User({ username, password: hashedPassword, role })
+		const setFullName = fullname !== '' ? fullname : 'Anonymous'
+		const newUser = new User({ username, password: hashedPassword, fullname: setFullName, avatar, role, signinWith })
 		await newUser.save()
 
 		// Return token
@@ -103,6 +104,57 @@ router.post('/login', async (req, res) => {
 			message: 'User logged in successfully',
 			accessToken
 		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+// @route POST api/auth/login/google
+// @desc Register user with google account
+// @access Public
+router.post('/login/google', async (req, res) => {
+	const { username, password, fullname, avatar, role, signinWith } = req.body
+
+	// Simple validation
+	if (!username)
+		return res
+			.status(400)
+			.json({ success: false, message: 'Missing username and/or password' })
+
+	try {
+		// Check for existing user
+		const user = await User.findOne({ username })
+
+		if (user) {
+			const accessToken = jwt.sign(
+				{ userId: user._id },
+				process.env.ACCESS_TOKEN_SECRET
+			)
+	
+			return res.json({
+					success: true,
+					message: 'User logged in successfully',
+					accessToken
+					})
+		} else{
+			const hashedPassword = await argon2.hash(password)
+			const setFullName = fullname !== '' ? fullname : 'Anonymous'
+			const newUser = new User({ username, password: hashedPassword, fullname: setFullName, avatar, role, signinWith })
+			await newUser.save()
+
+			const accessToken = jwt.sign(
+				{ userId: newUser._id },
+				process.env.ACCESS_TOKEN_SECRET
+			)
+	
+			return res.json({
+					success: true,
+					message: 'User created successfully',
+					accessToken
+					})
+		}
+			
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })

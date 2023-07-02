@@ -22,7 +22,7 @@ const ItemListPost = ({ post: { _id, content, createdAt, user, topic }, comments
             <div className='post-left'>
                 <a href={`/post/${_id}`}><h3 className='title-post'>{content}</h3></a>
                 <ul className='post-infor'>
-                    <li><FontAwesomeIcon icon={faCircleUser} />&nbsp;&nbsp;{user.username}</li>
+                    <li><FontAwesomeIcon icon={faCircleUser} />&nbsp;&nbsp;{user.fullname}</li>
                     <li><FontAwesomeIcon icon={faCircleDot} size="2xs" />&nbsp;&nbsp;{topic.title}</li>
                 </ul>
             </div>

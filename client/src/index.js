@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Layout from './views/Layout';
 import Auth from './views/Auth';
 import Topic from './components/Topic';
+import VideoCall from './components/VideoCall';
 import ListPost from './components/ListPost';
 import ListPostByTopic from './components/ListPostByTopic';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -38,6 +39,7 @@ root.render(
           </Route>
           
           <Route path="/auth" element={<Auth />}></Route>
+          <Route path="/test" element={<VideoCall />}></Route>
         </Routes>
       </BrowserRouter> 
     </React.StrictMode>

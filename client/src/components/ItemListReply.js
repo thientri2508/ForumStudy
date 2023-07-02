@@ -42,7 +42,7 @@ const ItemListReply = ({reply, socket}) => {
                         <li><FontAwesomeIcon icon={faCircleUser} size='2xl' /></li>
                         <li>
                             <ul className='post-detail-infor'>
-                                <li><b>{reply.user.username}</b></li>
+                                <li><b>{reply.user.fullname}</b></li>
                                 <li style={{fontSize: '12px'}}><i>{date.reverse().join("-")}</i></li>
                             </ul>
                         </li>

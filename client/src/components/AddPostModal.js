@@ -44,7 +44,7 @@ const AddPostModal = () => {
 
     var name = "username"
     if(isAuthenticated){
-        name = user.username
+        name = user.fullname
     }
 
     const {
@@ -82,6 +82,7 @@ const AddPostModal = () => {
         document.getElementById("btn-post-submit-none").style.display='block'
         setOff()
         setSelectedImages([]);
+        setSelectedVideos([]);
         setSelectedFiles([]);
         setShowAddPostModal(false)
         document.documentElement.style.overflow = 'auto';
@@ -114,9 +115,11 @@ const AddPostModal = () => {
     }
 
     const [selectedImages, setSelectedImages] = useState([]);
+    const [selectedVideos, setSelectedVideos] = useState([]);
 
     const handleClearImages = () => {
         setSelectedImages([]);
+        setSelectedVideos([]);
         setSelectedFiles([]);
         setPostForm({...PostForm, file: ""})
     };
@@ -133,12 +136,11 @@ const AddPostModal = () => {
 			console.log(error)
 		}
         
-        var nameFiles = PostForm.file.split('/')
         for(let i=0 ; i<selectedFiles.length ; i++){
             const formData = new FormData()
             formData.set("avatar", selectedFiles[i])
             try {
-                await axios.post(`${apiUrl}/upload/${nameFiles[i]}`, formData)
+                await axios.post(`${apiUrl}/upload`, formData)
             } catch (error) {
                 console.log(error)
             }
@@ -160,7 +162,7 @@ const AddPostModal = () => {
                     <li>
                         <ul>
                             <li className='AddPostModal-author'>{name}</li>
-                            <li style={{marginTop: '5px'}}><DropdownSelect options={Topicoptions} onChange={handleChangeTopic}></DropdownSelect></li>
+                            <li style={{marginTop: '5px', zIndex: '20', position: 'relative'}}><DropdownSelect options={Topicoptions} onChange={handleChangeTopic}></DropdownSelect></li>
                         </ul>
                     </li>
                 </ul>
@@ -168,7 +170,7 @@ const AddPostModal = () => {
                     <div id='AddPostModal-form'> 
                         <textarea id="input-title" placeholder="Write contents..." value={content} onChange={handleChangeContent}></textarea>
                         <div id='input-file'>
-                            <ImageUpload setPostForm={setPostForm} PostForm={PostForm} selectedImages={selectedImages} setSelectedImages={setSelectedImages} handleClearImages={handleClearImages} setOff={setOff} setSelectedFiles={setSelectedFiles} />
+                            <ImageUpload setLoading={setLoading} setPostForm={setPostForm} PostForm={PostForm} selectedImages={selectedImages} setSelectedImages={setSelectedImages} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} handleClearImages={handleClearImages} setOff={setOff} setSelectedFiles={setSelectedFiles} />
                             {/* <div onClick={handleClearImages}>Clear Images</div> */}
                         </div>
                     </div>

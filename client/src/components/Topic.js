@@ -4,7 +4,7 @@ import { TopicContext } from '../contexts/TopicContext'
 import { PostContext } from '../contexts/PostContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext, useEffect } from 'react'
-import Loader from '../components/Loader';
+import Loader from '../components/Loader'
 
 const Topic = () => {
 
