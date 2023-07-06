@@ -4,8 +4,6 @@ import { faThumbsUp, faComment } from '@fortawesome/free-solid-svg-icons'
 import ItemListPost from './ItemListPost';
 import ItemListPostMobile from './ItemListPostMobile';
 import { PostContext } from '../contexts/PostContext'
-import { CommentContext } from '../contexts/CommentContext'
-import { LikeContext } from '../contexts/LikeContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext, useEffect } from 'react'
 import Loader from '../components/Loader';
@@ -30,25 +28,13 @@ const ListPost = () => {
         }
     }
 
-    const {
-		commentState: { comments, commentsLoading },
-		getAllComments
-	} = useContext(CommentContext)
-
-    const {
-		likeState: { likes, likesLoading },
-		getAllLikes
-	} = useContext(LikeContext)
-    
     useEffect(() => {
         getPosts();
-        getAllComments();
-        getAllLikes();
     }, [])
 
     let body = null
 
-    if (postsLoading || commentsLoading || likesLoading) {
+    if (postsLoading) {
 		body = (
 			<Loader></Loader>
 		)
@@ -108,7 +94,7 @@ const ListPost = () => {
 
                     <div className='listPost'>
                         {posts.map(post => (
-                            <ItemListPost key={post._id} post={post} comments={comments} likes={likes}></ItemListPost>
+                            <ItemListPost key={post._id} post={post} ></ItemListPost>
                         ))}
                     </div>
 

@@ -1,26 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faComment, faCircleUser, faCircleDot } from '@fortawesome/free-solid-svg-icons'
+import { apiUrl } from '../contexts/constants'
 
-const ItemListPostMobile = ({ post: { _id, content, createdAt, user, topic } }) => {
+const ItemListPostMobile = ({ post: { _id, content, createdAt, user, file } }) => {
+
+    var t = createdAt.split('T')[0]
+    var date = t.split("-")
+
+    var amountFile = file.split("/").length-1
+
+    const [comments, setComments] = useState(null)
+    const [likes, setLikes] = useState(null)
+
+    useEffect(() => {
+        fetch(`${apiUrl}/comments/amount/${_id}`)
+        .then(response => response.json())
+        .then(data => setComments(data.comments))
+        .catch(err => console.log(err))
+
+        fetch(`${apiUrl}/likes/amount/${_id}`)
+        .then(response => response.json())
+        .then(data => setLikes(data.likes))
+        .catch(err => console.log(err))
+    }, [])
+
+    let avatar = (
+        <ul className='author'>
+            <li><FontAwesomeIcon icon={faCircleUser} size='xl' /></li>
+            <li>{user.fullname}</li>
+        </ul>
+    )
+    if(user.avatar) {
+        avatar = (
+            <ul className='author'>
+                <li><img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar1' ></img></li>
+                <li>{user.fullname}</li>
+            </ul>
+        )
+    }
+
     return (
         <div className='postMobile'>
             <ul className='postMobile-infor'>
-                <li><FontAwesomeIcon icon={faCircleUser} />&nbsp;&nbsp;{user.username}</li>
-                <li><FontAwesomeIcon icon={faCircleDot} size="2xs" />&nbsp;&nbsp;{createdAt.split('T')[0]}</li>
+                <li>{avatar}</li>
+                <li><FontAwesomeIcon icon={faCircleDot} size="2xs" />&nbsp;&nbsp;{date.reverse().join("-")}</li>
             </ul>
             <a href={`/post/${_id}`}><h3 className='postMobile-title'>{content}</h3></a>
+            <div style={{marginTop: '20px'}}><img src={ require('../image/image-gallery.png') }></img>&nbsp;&nbsp;{amountFile}</div>
             <ul className='postMobile-interact-view'>
                 <li>
                     <ul className='like'>
                         <li><FontAwesomeIcon icon={faThumbsUp} size='lg' /></li>
-                        <li>0</li>
+                        <li>{ likes ? likes : "0" }</li>
                     </ul> 
                 </li>
                 <li>
                     <ul className='comment'>
                         <li><FontAwesomeIcon icon={faComment} size='lg' /></li>
-                        <li>0</li>
+                        <li>{ comments ? comments : "0" }</li>
                     </ul> 
                 </li>
             </ul>

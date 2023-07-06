@@ -4,7 +4,7 @@ import { PostContext } from '../contexts/PostContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { TopicContext } from '../contexts/TopicContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark, faCircleUser, faL } from '@fortawesome/free-solid-svg-icons'
+import { faXmark, faCircleUser } from '@fortawesome/free-solid-svg-icons'
 import DropdownSelect from './DropdownSelect';
 import ImageUpload from './ImageUpload';
 import axios from 'axios'
@@ -151,7 +151,7 @@ const AddPostModal = () => {
     }
 
     return (
-        <div className='bg-loading' style={style}>
+        <div className='bg-loading' style={style}> 
             <div id='AddPostModal'>
                 { loading ? (<div className='LoadingAddPost'><div class="loader"></div></div>) : (<></>) }
                 <form onSubmit={post}>

@@ -115,6 +115,7 @@ const Post = () => {
     }
 
     let body = null
+    let avatar = (<FontAwesomeIcon icon={faCircleUser} size='2xl' />)
 
     if (postsLoading || repliesLoading) {
 		body = (
@@ -123,6 +124,10 @@ const Post = () => {
 	} else if (post == null) {
         return window.location.href = "/all-posts";
     } else {
+        if(post.user.avatar) {
+            avatar = (<img src={`${apiUrl }/upload/file/${post.user.avatar}`} className='avatar2' ></img>)
+        }
+
         document.getElementById("bannerTop").style.display='none';
         var createdAt = post.createdAt.split('T')[0];
         var date = createdAt.split("-");
@@ -156,7 +161,7 @@ const Post = () => {
                     <ul className='post-detail-wrapper'>
                         <li>
                             <ul className='post-detail-head'>
-                                <li><FontAwesomeIcon icon={faCircleUser} size='2xl' /></li>
+                                <li>{avatar}</li>
                                 <li>
                                     <ul className='post-detail-infor'>
                                         <li><b>{post.user.fullname}</b></li>

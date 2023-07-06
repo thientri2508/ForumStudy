@@ -8,7 +8,7 @@ const Post = require('../models/Post')
 // @access Public
 router.get('/', async (req, res) => {
 	try {
-		const posts = await Post.find().sort({ _id: -1 }).populate('user', ['fullname']).populate('topic', ['title'])
+		const posts = await Post.find().sort({ _id: -1 }).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
 		res.json({ success: true, posts })
 	} catch (error) {
 		console.log(error)
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 // @access Public
 router.get('/idTopic/:id', async (req, res) => {
 	try {
-		const posts = await Post.find({ topic: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname']).populate('topic', ['title'])
+		const posts = await Post.find({ topic: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
 		res.json({ success: true, posts })
 	} catch (error) {
 		console.log(error)
@@ -35,7 +35,7 @@ router.get('/idTopic/:id', async (req, res) => {
 // http://localhost:5000/api/upload/file/picture.png
 router.get('/idPost/:id', async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id).populate('user', ['fullname']).populate('topic', ['title'])
+		const post = await Post.findById(req.params.id).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
 		res.json({ success: true, post })
 	} catch (error) {
 		console.log(error)
@@ -49,7 +49,7 @@ router.get('/idPost/:id', async (req, res) => {
 router.get('/myposts', verifyToken, async (req, res) => {
 	try {
 		const posts = await Post.find({ user: req.userId }).sort({ _id: -1 }).populate('user', [
-			'fullname'
+			'fullname', 'avatar'
 		])
 		res.json({ success: true, posts })
 	} catch (error) {

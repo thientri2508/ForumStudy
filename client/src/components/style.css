@@ -10,6 +10,29 @@
     left: 0;
     z-index: 2;
 }
+.avatar{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.author{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.avatar1{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.avatar2{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
 .logo{
     width: 67px;
     height: 67px;
@@ -466,7 +489,13 @@
     width: 100%;
     bottom: 0;
 }
-.postMobile-infor, .postMobile-interact-view{
+.postMobile-infor{
+    display: flex;
+    gap: 30px;
+    margin-top: 25px;
+    align-items: center;
+}
+.postMobile-interact-view{
     display: flex;
     gap: 30px;
     margin-top: 25px;
@@ -898,6 +927,155 @@ animation: swing2 var(--uib-speed) linear infinite;
     transform: rotate(-70deg);
     animation-timing-function: ease-in;
 }
+}
+#EditProfile{
+    width: 500px;
+    height: 500px;
+    position: relative;
+    background: white;
+    left: 50%;
+    top: 130px;
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+.infor-avatar{
+    width: 170px;
+    margin: 0 auto;
+    margin-top: 20px; 
+    position: relative;
+}
+.infor-avatar > img{
+    width: 100%;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: solid 5px #ddd;
+}
+.wrapper-myprofile{
+    width: 100%;
+    height: 430px;
+    display: flex;
+    position: relative;
+    overflow-x: hidden;
+    justify-content: center;
+}
+#myprofile-left{
+    position: absolute;
+    left: 0px;
+    transition: .5s ease-in-out;
+    width: 500px;
+}
+#myprofile-right{
+    position: absolute;
+    right: -500px;
+    transition: .5s ease-in-out;
+    width: 500px;
+    height: 300px;
+    padding: 0px 50px 0px 50px;
+}
+.inp-profile{    
+    margin-top: 30px; 
+    position: relative;
+}
+.inp-profile > label{
+    position: absolute;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+    background: white;
+    text-align: center;
+    top: -12px;
+    left: 20px;
+}
+.inp-profile > input{
+    all: unset;
+    border: solid 2px #005bba;
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    width: 350px;
+    height: 50px;
+}
+.btn-updateProfile{
+    all: unset;
+    position: relative;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    padding: 15px 25px 15px 25px;
+    background: black;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    margin: 0 auto;
+}
+.btn-updateProfile:hover{
+    background: #4f4f4f;
+}
+.back-updateProfile{
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    bottom: 10px;
+    transition: all 0.3s ease-in-out;
+}
+.back-updateProfile:hover{
+    background: black;
+    color: white;
+}
+.edit-avatar{
+    position: absolute;
+    right: -20px;
+    bottom: -5px;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.2s linear;
+}
+#update-avatar{
+    position: absolute;
+    display: flex;
+    gap: 15px;
+    right: -115px;
+    bottom: 0px;
+    text-align: center;
+    border-radius: 10px;
+    transition: all 0.2s linear;
+    background: #ddd;
+}
+.cancel-update{
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+}
+.cancel-update:hover{
+    color: #EF665B;
+}
+.confirm-update{
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    cursor: pointer;
+}
+.confirm-update:hover{
+    color: cornflowerblue;
+}
+.edit-avatar:hover{
+    color: #C38077;
+}
+.infor-name{
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 5px;
 }
 #AddPostModal{
     width: 600px;

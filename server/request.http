@@ -23,14 +23,12 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/api/replies
+PUT http://localhost:5000/api/auth/avatar
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc5NDE0Mjh9.QhIYgeiiArGmcn5ZM7mtksqvOimeN_d80jbhy_CetsA
 
 {
-    "content": "well done",
-    "post": "649c0a5024537caba3ac9a5f",
-    "comment": "649c0a7e24537caba3ac9a81"
+    "avatar": "well done"
 }
 
 ###

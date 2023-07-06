@@ -6,6 +6,7 @@ import { CommentContext } from '../contexts/CommentContext'
 import { ReplyContext } from '../contexts/ReplyContext'
 import { useContext } from 'react'
 import ItemListReply from './ItemListReply';
+import {apiUrl} from '../contexts/constants'
 
 const ItemListComment = ({comment, socket, replies, post}) => {
     
@@ -67,12 +68,16 @@ const ItemListComment = ({comment, socket, replies, post}) => {
     let del
     let btnReply
 
+    let me = (<FontAwesomeIcon icon={faCircleUser} size='2xl'/>)
     if(isAuthenticated){
         btnReply = (<h5 className='btn-reply' onClick={openFormReply}>Reply</h5>)
         if(comment.user._id == user._id) {
             del = (
                 <li onClick={() => {DeteleComment(comment._id)}}><FontAwesomeIcon icon={faEraser} size='lg'/></li>
             )
+        }
+        if(user.avatar) {
+            me = (<img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar1' ></img>)
         }
     }
 
@@ -88,13 +93,18 @@ const ItemListComment = ({comment, socket, replies, post}) => {
         document.getElementById(`reply-${comment._id}`).style.display='none'
     }
 
+    let avatar = (<FontAwesomeIcon icon={faCircleUser} size='2xl'/>)
+        if(comment.user.avatar) {
+            avatar = (<img src={`${apiUrl }/upload/file/${comment.user.avatar}`} className='avatar1' ></img>)
+        }
+
     return (
         <div>
             <div className='list-comment-item' id={`positionComment-${comment._id}`}>
                 <ul className='post-detail-wrapper' style={{marginBottom : "0px"}}>
                     <li>
                         <ul className='post-detail-head'>
-                            <li><FontAwesomeIcon icon={faCircleUser} size='2xl' /></li>
+                            <li>{avatar}</li>
                             <li>
                                 <ul className='post-detail-infor'>
                                     <li><b>{comment.user.fullname}</b></li>
@@ -120,7 +130,7 @@ const ItemListComment = ({comment, socket, replies, post}) => {
                 if(itemReply!=null && itemComment!=null) {
                     var positionReply = itemReply.offsetTop
                     var positionComment = itemComment.offsetTop
-                    var height = positionReply-positionComment-45
+                    var height = positionReply-positionComment-48
                     document.getElementById(`curve-${reply._id}`).style.height=height+'px'
                     document.getElementById(`curve-${reply._id}`).style.top=(26-height)+'px'
                 }
@@ -129,8 +139,8 @@ const ItemListComment = ({comment, socket, replies, post}) => {
 
             <form onSubmit={reply}>
             <ul className='reply-form' id={`reply-${comment._id}`}>
-                <li><FontAwesomeIcon icon={faCircleUser} size='xl' /></li>
-                <li style={{ width: '94%'}}>
+                <li>{me}</li>
+                <li style={{ width: '93%'}}>
                     <div>
                         <textarea className='inp-reply' id={`inp-${comment._id}`} placeholder='Write reply...' value={content} onChange={handleChangeReply}></textarea>
                         <button className='sendReply' id={`sendReply-${comment._id}`}><ion-icon name="send"></ion-icon></button>

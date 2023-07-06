@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from 'react'
+import { createContext, useReducer, useEffect, useState } from 'react'
 import { authReducer } from '../reducers/authReducer'
 import { apiUrl, LOCAL_STORAGE_TOKEN_NAME } from './constants'
 import axios from 'axios'
@@ -12,6 +12,8 @@ const AuthContextProvider = ({ children }) => {
 		isAuthenticated: false,
 		user: null
 	})
+
+	const [showEditProfile, setShowEditProfile] = useState(false)
 
 	// Authenticate user
 	const loadUser = async () => {
@@ -105,8 +107,76 @@ const AuthContextProvider = ({ children }) => {
 		})
 	}
 
+	const updateAvatar = async newAvatar => {
+		try {
+			const response = await axios.put(
+				`${apiUrl}/auth/avatar`,
+				newAvatar
+			)
+			if (response.data.success) {
+				dispatch({
+					type: 'SET_AUTH',
+					payload: { isAuthenticated: true, user: response.data.user }
+				})
+			}
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
+		}
+	}
+
+	const updateName = async newFullname => {
+		try {
+			const response = await axios.put(
+				`${apiUrl}/auth/fullname`,
+				newFullname
+			)
+			if (response.data.success) {
+				dispatch({
+					type: 'SET_AUTH',
+					payload: { isAuthenticated: true, user: response.data.user }
+				})
+			}
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
+		}
+	}
+
+	const updatePass = async newPassword => {
+		try {
+			const response = await axios.put(
+				`${apiUrl}/auth/password`,
+				newPassword
+			)
+			if (response.data.success) {
+				dispatch({
+					type: 'SET_AUTH',
+					payload: { isAuthenticated: true, user: response.data.user }
+				})
+			}
+			return response.data
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
+		}
+	}
+
 	// Context data
-	const authContextData = { loginUser, loginWithGoogle, registerUser, logoutUser, authState }
+	const authContextData = { 
+		loginUser, 
+		loginWithGoogle, 
+		registerUser, 
+		logoutUser, 
+		authState, 
+		showEditProfile, 
+		setShowEditProfile, 
+		updateName,
+		updatePass,
+		updateAvatar }
 
 	// Return provider
 	return (

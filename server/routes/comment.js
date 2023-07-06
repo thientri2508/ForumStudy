@@ -9,7 +9,20 @@ const Comment = require('../models/Comment')
 // @access Public
 router.get('/:id', async (req, res) => {
 	try {
-		const comments = await Comment.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname'])
+		const comments = await Comment.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname', 'avatar'])
+		res.json({ success: true, comments })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+// @route GET api/comments/amount
+// @desc Get amount comments by post
+// @access Public
+router.get('/amount/:id', async (req, res) => {
+	try {
+		const comments = await Comment.countDocuments({ post: req.params.id })
 		res.json({ success: true, comments })
 	} catch (error) {
 		console.log(error)

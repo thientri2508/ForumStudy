@@ -9,7 +9,7 @@ const Reply = require('../models/Reply')
 // @access Public
 router.get('/:id', async (req, res) => {
 	try {
-		const replies = await Reply.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname'])
+		const replies = await Reply.find({ post: req.params.id }).sort({ _id: -1 }).populate('user', ['fullname', 'avatar'])
 		res.json({ success: true, replies })
 	} catch (error) {
 		console.log(error)

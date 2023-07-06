@@ -4,8 +4,6 @@ import { faThumbsUp, faComment, faAngleLeft } from '@fortawesome/free-solid-svg-
 import ItemListPost from './ItemListPost';
 import ItemListPostMobile from './ItemListPostMobile';
 import { PostContext } from '../contexts/PostContext'
-import { CommentContext } from '../contexts/CommentContext'
-import { LikeContext } from '../contexts/LikeContext'
 import { useContext, useEffect } from 'react'
 import Loader from '../components/Loader';
 import { useParams } from 'react-router-dom';
@@ -21,20 +19,8 @@ const ListPostByTopic = () => {
 		getPostsByTopic
 	} = useContext(PostContext)
     
-    const {
-		commentState: { comments, commentsLoading },
-		getAllComments
-	} = useContext(CommentContext)
-
-    const {
-		likeState: { likes, likesLoading },
-		getAllLikes
-	} = useContext(LikeContext)
-    
     useEffect(() => {
         getPostsByTopic(topicId);
-        getAllComments();
-        getAllLikes();
     }, [])
 
     const fnBack = () => {
@@ -43,7 +29,7 @@ const ListPostByTopic = () => {
 
     let body = null
 
-    if (postsLoading || commentsLoading || likesLoading) {
+    if (postsLoading) {
 		body = (
 			<Loader></Loader>
 		)
@@ -102,7 +88,7 @@ const ListPostByTopic = () => {
 
                     <div className='listPost'>
                         {posts.map(post => (
-                            <ItemListPost key={post._id} post={post} comments={comments} likes={likes}></ItemListPost>
+                            <ItemListPost key={post._id} post={post}></ItemListPost>
                         ))}
                     </div>
 

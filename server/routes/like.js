@@ -17,6 +17,19 @@ router.get('/:id', async (req, res) => {
 	}
 })
 
+// @route GET api/likes
+// @desc Get amount likes by post
+// @access Public
+router.get('/amount/:id', async (req, res) => {
+	try {
+		const likes = await Like.countDocuments({ post: req.params.id })
+		res.json({ success: true, likes })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
 router.get('/', async (req, res) => {
 	try {
 		const likes = await Like.find({ }).select('post')

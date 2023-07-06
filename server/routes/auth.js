@@ -11,7 +11,7 @@ const User = require('../models/User')
 // @access Public
 router.get('/', verifyToken, async (req, res) => {
 	try {
-		const user = await User.findById(req.userId).select('-password')
+		const user = await User.findById(req.userId)
 		if (!user)
 			return res.status(400).json({ success: false, message: 'User not found' })
 		res.json({ success: true, user })
@@ -155,6 +155,89 @@ router.post('/login/google', async (req, res) => {
 					})
 		}
 			
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+router.put('/avatar', verifyToken, async (req, res) => {
+	const {avatar} = req.body
+
+	try {
+		let updated = { avatar }
+
+		const UpdateCondition = { _id: req.userId }
+
+		updatedAvatar = await User.findOneAndUpdate(
+			UpdateCondition,
+			updated,
+			{ new: true }
+		)
+
+		res.json({
+			success: true,
+			message: 'Excellent progress!',
+			user: updatedAvatar
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+router.put('/fullname', verifyToken, async (req, res) => {
+	const {fullname} = req.body
+
+	try {
+		let updated = { fullname }
+
+		const UpdateCondition = { _id: req.userId }
+
+		updatedFullname = await User.findOneAndUpdate(
+			UpdateCondition,
+			updated,
+			{ new: true }
+		)
+
+		res.json({
+			success: true,
+			message: 'Excellent progress!',
+			user: updatedFullname
+		})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+router.put('/password', verifyToken, async (req, res) => {
+	const { password, newpassword } = req.body
+
+	try {
+		const user = await User.findOne({ _id: req.userId })
+		const passwordValid = await argon2.verify(user.password, password)
+		if (!passwordValid)
+			return res
+				.status(400)
+				.json({ success: false, message: 'Old Password is Incorrect' })
+
+		const hashedPassword = await argon2.hash(newpassword)
+		let updated = { password: hashedPassword }
+
+		const UpdateCondition = { _id: req.userId }
+
+		updatedPassword = await User.findOneAndUpdate(
+			UpdateCondition,
+			updated,
+			{ new: true }
+		)
+
+		res.json({
+			success: true,
+			message: 'Excellent progress!',
+			user: updatedPassword
+		})
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })

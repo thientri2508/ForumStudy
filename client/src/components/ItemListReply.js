@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faEraser } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../contexts/AuthContext'
 import { ReplyContext } from '../contexts/ReplyContext'
+import {apiUrl} from '../contexts/constants'
 
 const ItemListReply = ({reply, socket}) => {
     var createdAt = reply.createdAt.split('T')[0]
@@ -33,13 +34,18 @@ const ItemListReply = ({reply, socket}) => {
 		}
     }
 
+    let avatar = (<FontAwesomeIcon icon={faCircleUser} size='2xl'/>)
+        if(reply.user.avatar) {
+            avatar = (<img src={`${apiUrl }/upload/file/${reply.user.avatar}`} className='avatar1' ></img>)
+        }
+
     return (
         <div className='list-comment-item' id={`itemReply-${reply._id}`} style={{marginLeft: '55px', marginTop: '5px', position: 'relative'}}>
             <div className='curve' id={`curve-${reply._id}`}></div>
             <ul className='post-detail-wrapper' style={{marginBottom : "0px"}}>
                 <li>
                     <ul className='post-detail-head'>
-                        <li><FontAwesomeIcon icon={faCircleUser} size='2xl' /></li>
+                        <li>{avatar}</li>
                         <li>
                             <ul className='post-detail-infor'>
                                 <li><b>{reply.user.fullname}</b></li>

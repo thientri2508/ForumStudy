@@ -5,16 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext } from 'react'
-import Loading from '../components/Loading';
 import Loader from './Loader';
+import {apiUrl} from '../contexts/constants'
 
 const Header = () => {
     const {
 		authState: { authLoading, isAuthenticated, user },
-		logoutUser
+		logoutUser,
+        setShowEditProfile
 	} = useContext(AuthContext)
 
     const logout = () => logoutUser()
+
+    const EditProfile =  () => {
+        setShowEditProfile(true)
+        document.documentElement.style.overflow = 'hidden';
+    }
 
     let body
 
@@ -23,6 +29,11 @@ const Header = () => {
         <Loader></Loader>
 		)
 	else if (isAuthenticated) {
+        let avatar = (<FontAwesomeIcon icon={faCircleUser} size="2xl" />)
+        if(user.avatar){
+            avatar = (<img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar' ></img>)
+        }
+
         body = (
 			<div className='header'>
                 <a href='/'><img src={logoIcon} className='logo'></img></a>
@@ -32,7 +43,7 @@ const Header = () => {
                     <ul className='list'>
                         <li className='menu-list-item'>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="xl" />&nbsp;&nbsp;&nbsp;&nbsp;{user.fullname}</li>
+                        <li className='menu-list-item' onClick={EditProfile}>{avatar}</li>
                         <li className='logout' onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} size="xl" /></li>
                         <li className='menu-list-item'>
                             <ul className='share'>
@@ -55,7 +66,7 @@ const Header = () => {
                     <ul className='list'>
                         <li className='menu-list-item'>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <a href='/auth'><li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="xl" />&nbsp;&nbsp;&nbsp;&nbsp;Log In</li></a>
+                        <a href='/auth'><li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="2xl" />&nbsp;&nbsp;&nbsp;&nbsp;Log In</li></a>
                         <li className='menu-list-item'>
                             <ul className='share'>
                                 <li><i class="fa-brands fa-facebook-f fa-xl"></i></li>
