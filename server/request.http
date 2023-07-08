@@ -50,13 +50,14 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:5000/api/posts
+POST http://localhost:5000/api/rooms
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODc3NjA2NTJ9.20c6fwT7AFK2X_sm9lCVZArNtPqs9cy21JJdJhwPa0s
 
 {
-    "content": "Học lập trình từ đâu?",
-    "topic": "649197c37744ca82128efdca"
+    "name": "Phòng học Toán 3",
+    "date": "10/10/2023",
+    "time": "5:00 PM  -  7:00 PM"
 }
 
 ###

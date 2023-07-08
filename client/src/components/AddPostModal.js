@@ -43,8 +43,12 @@ const AddPostModal = () => {
 	} = useContext(AuthContext)
 
     var name = "username"
+    var avatar = (<FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "42px"}} />)
     if(isAuthenticated){
         name = user.fullname
+        if(user.avatar) {
+            avatar = (<img src={user.avatar} className='avatar' ></img>)
+        }
     }
 
     const {
@@ -158,7 +162,7 @@ const AddPostModal = () => {
                 <h3 className='create-post'>Create Post</h3>
                 <div className='close-AddPostModal' onClick={CloseCreatePost}><FontAwesomeIcon icon={faXmark} size='xl' /></div>
                 <ul className='AddPostModal-head'>
-                    <li><FontAwesomeIcon icon={faCircleUser} style={{ fontSize: "42px"}} /></li>
+                    <li>{avatar}</li>
                     <li>
                         <ul>
                             <li className='AddPostModal-author'>{name}</li>

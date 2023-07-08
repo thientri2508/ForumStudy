@@ -36,7 +36,7 @@ const ItemListReply = ({reply, socket}) => {
 
     let avatar = (<FontAwesomeIcon icon={faCircleUser} size='2xl'/>)
         if(reply.user.avatar) {
-            avatar = (<img src={`${apiUrl }/upload/file/${reply.user.avatar}`} className='avatar1' ></img>)
+            avatar = (<img src={reply.user.avatar} className='avatar1' ></img>)
         }
 
     return (

@@ -58,6 +58,19 @@ router.get('/myposts', verifyToken, async (req, res) => {
 	}
 })
 
+// @route GET api/posts/amount
+// @desc Get amount post by user
+// @access Public
+router.get('/amount/:id', async (req, res) => {
+	try {
+		const posts = await Post.countDocuments({ user: req.params.id })
+		res.json({ success: true, posts })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
 // @route POST api/posts
 // @desc Create post
 // @access Private

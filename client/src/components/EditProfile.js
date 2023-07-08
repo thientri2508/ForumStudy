@@ -1,5 +1,5 @@
 import React from 'react';
-import { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faUserPen, faRotateRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../contexts/AuthContext'
@@ -9,15 +9,29 @@ import axios from 'axios'
 import Card from './Card/Card'
 import EditAccountForm from './EditAccountForm';
 
-const EditProfile = () => {
+const EditProfile = ({user}) => {
 
     const [avatar, setAvatar] = useState(null)
+    const [posts, setPosts] = useState(null)
+    const [likes, setLikes] = useState(null)
+
+    useEffect(() => {
+        fetch(`${apiUrl}/posts/amount/${user._id}`)
+        .then(response => response.json())
+        .then(data => setPosts(data.posts))
+        .catch(err => console.log(err))
+
+        fetch(`${apiUrl}/likes/amount/user/${user._id}`)
+        .then(response => response.json())
+        .then(data => setLikes(data.like))  
+        .catch(err => console.log(err))
+    }, [])
 
     const { 
-        authState: { isAuthenticated, user },
         showEditProfile, 
         setShowEditProfile, 
-        updateAvatar} = useContext(AuthContext)
+        updateAvatar
+        } = useContext(AuthContext)
 
     var style
     if(showEditProfile){
@@ -81,7 +95,7 @@ const EditProfile = () => {
         var fileInput = document.getElementById("file-avatar");
         fileInput.value = "";
         if(user.avatar != "") {
-            img.src = `${apiUrl }/upload/file/${user.avatar}`
+            img.src = `${user.avatar}`
         } else{
             img.src = require('../image/account.png')
         }
@@ -93,7 +107,7 @@ const EditProfile = () => {
         var fileInput = document.getElementById("file-avatar");
         fileInput.value = "";
         if(user.avatar != "") {
-            img.src = `${apiUrl }/upload/file/${user.avatar}`
+            img.src = `${user.avatar}`
         } else{
             img.src = require('../image/account.png')
         }
@@ -103,14 +117,14 @@ const EditProfile = () => {
     const UpdateAvatar = async (event) => {
         event.preventDefault()
         try {
-			await updateAvatar({avatar: avatar.name})  
+			await updateAvatar({avatar: `${apiUrl}/upload/file/${avatar.name}`})  
 		} catch (error) {
 			console.log(error)
 		}
         const formData = new FormData()
         formData.set("avatar", avatar)
         try {
-            await axios.post(`${apiUrl}/upload`, formData)
+            await axios.post(`${apiUrl}/upload`, formData) 
         } catch (error) {
             console.log(error)
         }
@@ -150,32 +164,30 @@ const EditProfile = () => {
     }
 
     let body
-    if(isAuthenticated){
-        if(user.avatar != ""){
-            body = (
-                <div>
-                    <div className='infor-avatar'>
-                        <img src={`${apiUrl }/upload/file/${user.avatar}`} id='img-avatar' ></img>
-                        <div className='edit-avatar' onClick={handleOpenFile}><FontAwesomeIcon icon={faUserPen} size='xl' /></div>
-                        {updateAvatarToolbar}
-                        <input type='file' accept='.png, .jpg, .jpeg' id='file-avatar' onChange={handleImageSelect} ref={fileInputRef} style={{display : 'none'}}></input>
-                    </div>
-                    <h2 className='infor-name'>{user.fullname}</h2>
+    if(user.avatar != ""){
+        body = (
+            <div>
+                <div className='infor-avatar'>
+                    <img src={user.avatar} id='img-avatar' ></img>
+                    <div className='edit-avatar' onClick={handleOpenFile}><FontAwesomeIcon icon={faUserPen} size='xl' /></div>
+                    {updateAvatarToolbar}
+                    <input type='file' accept='.png, .jpg, .jpeg' id='file-avatar' onChange={handleImageSelect} ref={fileInputRef} style={{display : 'none'}}></input>
                 </div>
-            )
-        } else{
-            body = (
-                <div>
-                    <div className='infor-avatar'>
-                        <img src={ require('../image/account.png') } id='img-avatar'></img>
-                        <div className='edit-avatar' onClick={handleOpenFile}><FontAwesomeIcon icon={faUserPen} size='xl' /></div>
-                        {updateAvatarToolbar}
-                        <input type='file' accept='.png, .jpg, .jpeg' id='file-avatar' onChange={handleImageSelect} ref={fileInputRef} style={{display : 'none'}}></input>
-                    </div>
-                    <h2 className='infor-name'>{user.fullname}</h2>
+                <h2 className='infor-name'>{user.fullname}</h2>
+            </div>
+        )
+    } else{
+        body = (
+            <div>
+                <div className='infor-avatar'>
+                    <img src={ require('../image/account.png') } id='img-avatar'></img>
+                    <div className='edit-avatar' onClick={handleOpenFile}><FontAwesomeIcon icon={faUserPen} size='xl' /></div>
+                    {updateAvatarToolbar}
+                    <input type='file' accept='.png, .jpg, .jpeg' id='file-avatar' onChange={handleImageSelect} ref={fileInputRef} style={{display : 'none'}}></input>
                 </div>
-            )
-        }
+                <h2 className='infor-name'>{user.fullname}</h2>
+            </div>
+        )
     }
 
     const UpdateProfileForm = () => {
@@ -206,10 +218,10 @@ const EditProfile = () => {
                 <div className='wrapper-myprofile'>
                     <div id='myprofile-left'>
                         {body}
-                        <Card UpdateProfileForm={UpdateProfileForm}></Card>
+                        <Card UpdateProfileForm={UpdateProfileForm} posts={posts} likes={likes}></Card>
                     </div>
 
-                    <EditAccountForm UpdateProfileAvatar={UpdateProfileAvatar}></EditAccountForm>
+                    <EditAccountForm UpdateProfileAvatar={UpdateProfileAvatar} user={user}></EditAccountForm>
                 </div>
             </div>
         </div>

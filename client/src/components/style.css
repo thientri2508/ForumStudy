@@ -193,6 +193,7 @@
     color: white;
     background: black;
     display: block;
+    border-radius: 5px;
 }
 .list-topic{
     clear: both;
@@ -209,10 +210,53 @@
     box-shadow: rgba(100,100,111,0.2) 0px 7px 29px 0px;
     background: white;
 }
+.btn-joinRoom{
+    all: unset;
+    position: absolute;
+    z-index: 5;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 30px 20px 30px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    display: none;
+}
 .img-topic{
     height: 252px;
     width: 100%;
     cursor: pointer;
+    object-fit: cover;
+}
+.img-meeting{
+    height: 252px;
+    width: 100%;
+    cursor: pointer;
+    object-fit: cover;
+    transition: all 0.3s ease-in-out;
+}
+.camera{
+    height: 100vh;
+    margin-top: -40px;
+    background: url("../image/bgmeet.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+.meeting-header{
+    position: relative;
+    width: 100%;
+}
+.meeting-header:hover .img-meeting{
+    filter: blur(8px);
+}
+.meeting-header:hover .btn-joinRoom{
+    display: block;
 }
 .title-topic{   
     width: 80%;
@@ -222,6 +266,30 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+}
+.meeting-author{
+    width: 80%;
+    padding-top: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 12px;
+}
+.metting-time{
+    width: 80%;
+    padding-top: 20px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 35px;
+}
+.metting-clock{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 10px;
 }
 .title-topic-text{
     font-family: 'Sora', sans-serif;
@@ -934,7 +1002,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     position: relative;
     background: white;
     left: 50%;
-    top: 130px;
+    top: 120px;
     transform: translateX(-50%);
     border-radius: 10px;
 }
@@ -1332,8 +1400,19 @@ animation: swing2 var(--uib-speed) linear infinite;
     margin-top: 30px;
     margin-bottom: 60px;
 }
+.NoTopic{
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 200px;
+}
 .imgNoPost{
     margin-top: 80px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.imgNoTopic{
+    margin-top: 120px;
     position: relative;
     left: 50%;
     transform: translateX(-50%);

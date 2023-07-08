@@ -6,7 +6,6 @@ import { CommentContext } from '../contexts/CommentContext'
 import { ReplyContext } from '../contexts/ReplyContext'
 import { useContext } from 'react'
 import ItemListReply from './ItemListReply';
-import {apiUrl} from '../contexts/constants'
 
 const ItemListComment = ({comment, socket, replies, post}) => {
     
@@ -77,12 +76,15 @@ const ItemListComment = ({comment, socket, replies, post}) => {
             )
         }
         if(user.avatar) {
-            me = (<img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar1' ></img>)
+            me = (<img src={user.avatar} className='avatar1' ></img>)
         }
     }
 
     const reply = async (event) => {
         event.preventDefault()
+        if(!isAuthenticated) {
+            return window.location.href = "/auth";
+        }
         try {
 			const newReply = await addReply(ReplyForm)
             socket.emit("reply", "replyData")
@@ -95,7 +97,7 @@ const ItemListComment = ({comment, socket, replies, post}) => {
 
     let avatar = (<FontAwesomeIcon icon={faCircleUser} size='2xl'/>)
         if(comment.user.avatar) {
-            avatar = (<img src={`${apiUrl }/upload/file/${comment.user.avatar}`} className='avatar1' ></img>)
+            avatar = (<img src={comment.user.avatar} className='avatar1' ></img>)
         }
 
     return (

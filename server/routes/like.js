@@ -3,6 +3,7 @@ const router = express.Router()
 const verifyToken = require('../middleware/auth')
 
 const Like = require('../models/Like')
+const Post = require('../models/Post')
 
 // @route GET api/likes
 // @desc Get likes by post
@@ -34,6 +35,25 @@ router.get('/', async (req, res) => {
 	try {
 		const likes = await Like.find({ }).select('post')
 		res.json({ success: true, likes })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+// @route GET api/likes
+// @desc Get amount likes by user
+// @access Public
+router.get('/amount/user/:id', async (req, res) => {
+	try {
+		const posts = await Post.find({ user: req.params.id }).select('_id')
+		var like = 0
+		for(let i=0 ; i<posts.length ; i++){
+            const count = await Like.countDocuments({ post: posts[i]._id })
+			if(count) like +=count
+        }
+	  
+		res.json({ success: true, like })
 	} catch (error) {
 		console.log(error)
 		res.status(500).json({ success: false, message: 'Internal server error' })

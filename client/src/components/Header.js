@@ -6,9 +6,12 @@ import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-ic
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext } from 'react'
 import Loader from './Loader';
-import {apiUrl} from '../contexts/constants'
+import { useNavigate } from 'react-router-dom';
+import EditProfile from './EditProfile';
 
 const Header = () => {
+    const navigate = useNavigate()
+
     const {
 		authState: { authLoading, isAuthenticated, user },
 		logoutUser,
@@ -17,7 +20,7 @@ const Header = () => {
 
     const logout = () => logoutUser()
 
-    const EditProfile =  () => {
+    const OpenEditProfile =  () => {
         setShowEditProfile(true)
         document.documentElement.style.overflow = 'hidden';
     }
@@ -31,19 +34,20 @@ const Header = () => {
 	else if (isAuthenticated) {
         let avatar = (<FontAwesomeIcon icon={faCircleUser} size="2xl" />)
         if(user.avatar){
-            avatar = (<img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar' ></img>)
+            avatar = (<img src={user.avatar} className='avatar' ></img>)
         }
 
-        body = (
+        body = (<>
 			<div className='header'>
                 <a href='/'><img src={logoIcon} className='logo'></img></a>
                 <input type='checkbox' id='toggler'></input>
                 <label for='toggler'><i class="fa-solid fa-bars fa-2xl"></i></label>
                 <div className='menu'>
                     <ul className='list'>
-                        <li className='menu-list-item'>Forum</li>
+                        <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item' onClick={EditProfile}>{avatar}</li>
+                        <li className='menu-list-item' onClick={() => navigate('/meeting')}>Meeting</li>
+                        <li className='menu-list-item' onClick={OpenEditProfile}>{avatar}</li>
                         <li className='logout' onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} size="xl" /></li>
                         <li className='menu-list-item'>
                             <ul className='share'>
@@ -54,6 +58,8 @@ const Header = () => {
                     </ul>
                 </div>
             </div>
+            <EditProfile user={user}></EditProfile>
+            </>
 		)
     }
 	else{
@@ -64,8 +70,9 @@ const Header = () => {
                 <label for='toggler'><i class="fa-solid fa-bars fa-2xl"></i></label>
                 <div className='menu'>
                     <ul className='list'>
-                        <li className='menu-list-item'>Forum</li>
+                        <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
                         <li className='menu-list-item'>Members</li>
+                        <li className='menu-list-item' onClick={() => navigate('/meeting')}>Meeting</li>
                         <a href='/auth'><li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="2xl" />&nbsp;&nbsp;&nbsp;&nbsp;Log In</li></a>
                         <li className='menu-list-item'>
                             <ul className='share'>

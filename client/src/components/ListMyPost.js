@@ -52,8 +52,11 @@ const ListMyPost = () => {
 			<Loader></Loader>
 		)
 	} else if (posts.length === 0) {
-        document.getElementById("MyPosts").style.color="#C38077"
-        document.getElementById("MyPosts").style.fontSize="22px"
+        var title = document.getElementById("MyPosts")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='post'>
@@ -82,8 +85,11 @@ const ListMyPost = () => {
             </div>
 		)
 	} else {
-        document.getElementById("MyPosts").style.color="#C38077"
-        document.getElementById("MyPosts").style.fontSize="22px"
+        var title = document.getElementById("MyPosts")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='post'>

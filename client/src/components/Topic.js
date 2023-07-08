@@ -13,7 +13,7 @@ const Topic = () => {
 	} = useContext(PostContext)
 
     const {
-		topicState: { topic, topics, topicsLoading },
+		topicState: { topics, topicsLoading },
 		getTopics
 	} = useContext(TopicContext)
 
@@ -39,21 +39,26 @@ const Topic = () => {
 			<Loader></Loader>
 		)
 	} else if (topics.length === 0) {
-        document.getElementById("Topics").style.color="#C38077"
-        document.getElementById("Topics").style.fontSize="22px"
+        var title = document.getElementById("Topics")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='topic'>
                     <button className='btn-post' onClick={AddPost}>Create New Post</button>
-                    <ul className='list-topic' style={{height: "500px"}}>
-                        <h1>Not Topic</h1>
-                    </ul>
+                    <img src={ require('../image/inbox.png') } className='imgNoTopic'></img>
+                    <h2 className='NoTopic'>There are no topics currently...</h2>	
                 </div>
             </div>	
 		)
 	} else {
-        document.getElementById("Topics").style.color="#C38077"
-        document.getElementById("Topics").style.fontSize="22px"
+        var title = document.getElementById("Topics")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='topic'>

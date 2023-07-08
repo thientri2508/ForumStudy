@@ -125,7 +125,7 @@ const Post = () => {
         return window.location.href = "/all-posts";
     } else {
         if(post.user.avatar) {
-            avatar = (<img src={`${apiUrl }/upload/file/${post.user.avatar}`} className='avatar2' ></img>)
+            avatar = (<img src={post.user.avatar} className='avatar2' ></img>)
         }
 
         document.getElementById("bannerTop").style.display='none';

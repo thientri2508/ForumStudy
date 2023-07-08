@@ -7,7 +7,6 @@ import BannerBottom from '../components/BannerBottom';
 import Footer from '../components/Footer';
 import { Outlet } from "react-router-dom";
 import AddPostModal from '../components/AddPostModal';
-import EditProfile from '../components/EditProfile';
 
 const Layout = () => {
 
@@ -23,7 +22,6 @@ const Layout = () => {
         <body>
             {/* <Header name={name}></Header> */}
             <Header></Header>
-            <EditProfile></EditProfile>
             <AddPostModal></AddPostModal>
             <Category></Category>
             <BannerTop></BannerTop>

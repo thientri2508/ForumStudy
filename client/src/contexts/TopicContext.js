@@ -21,14 +21,6 @@ const TopicContextProvider = ({ children }) => {
 		topicsLoading: true
 	})
 
-	// const [showAddPostModal, setShowAddPostModal] = useState(false)
-	// const [showUpdatePostModal, setShowUpdatePostModal] = useState(false)
-	// const [showToast, setShowToast] = useState({
-	// 	show: false,
-	// 	message: '',
-	// 	type: null
-	// })
-
 	// Get all topics
 	const getTopics = async () => {
 		try {
@@ -47,7 +39,7 @@ const TopicContextProvider = ({ children }) => {
 	// Add topic
 	const addTopic = async newTopic => {
 		try {
-			const response = await axios.post(`${apiUrl}/posts`, newTopic)
+			const response = await axios.post(`${apiUrl}/topics`, newTopic)
 			if (response.data.success) {
 				dispatch({ type: ADD_TOPIC, payload: response.data.topic })
 				return response.data
@@ -80,7 +72,7 @@ const TopicContextProvider = ({ children }) => {
 	const updateTopic = async updatedTopic => {
 		try {
 			const response = await axios.put(
-				`${apiUrl}/posts/${updatedTopic._id}`,
+				`${apiUrl}/topics/${updatedTopic._id}`,
 				updatedTopic
 			)
 			if (response.data.success) {
@@ -98,13 +90,7 @@ const TopicContextProvider = ({ children }) => {
 	const topicContextData = {
 		topicState,
 		getTopics,
-		// showAddPostModal,
-		// setShowAddPostModal,
-		// showUpdatePostModal,
-		// setShowUpdatePostModal,
 		addTopic,
-		// showToast,
-		// setShowToast,
 		deleteTopic,
 		findTopic,
 		updateTopic

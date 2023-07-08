@@ -34,7 +34,7 @@ const ItemListPost = ({ post: { _id, content, createdAt, user, topic, file } }) 
     if(user.avatar) {
         avatar = (
             <ul className='author'>
-                <li><img src={`${apiUrl }/upload/file/${user.avatar}`} className='avatar1' ></img></li>
+                <li><img src={user.avatar} className='avatar1' ></img></li>
                 <li>{user.fullname}</li>
             </ul>
         )

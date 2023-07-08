@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import Layout from './views/Layout';
 import Auth from './views/Auth';
 import Topic from './components/Topic';
-import VideoCall from './components/VideoCall';
+import Room from './components/Room';
+import Meeting from './views/Meeting';
 import ListPost from './components/ListPost';
 import ListPostByTopic from './components/ListPostByTopic';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -16,6 +17,7 @@ import PostContextProvider  from './contexts/PostContext'
 import CommentContextProvider  from './contexts/CommentContext'
 import ReplyContextProvider  from './contexts/ReplyContext'
 import LikeContextProvider  from './contexts/LikeContext'
+import RoomContextProvider  from './contexts/RoomContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +27,7 @@ root.render(
   <LikeContextProvider>
   <CommentContextProvider>
   <ReplyContextProvider>
+  <RoomContextProvider>
 
     <React.StrictMode>
       <BrowserRouter>
@@ -39,11 +42,13 @@ root.render(
           </Route>
           
           <Route path="/auth" element={<Auth />}></Route>
-          <Route path="/test" element={<VideoCall />}></Route>
+          <Route path="/meeting" element={<Meeting />}></Route>
+          <Route path="/meeting/room/:id" element={<Room />}></Route>
         </Routes>
       </BrowserRouter> 
     </React.StrictMode>
 
+    </RoomContextProvider>
     </ReplyContextProvider>
     </CommentContextProvider>
     </LikeContextProvider>

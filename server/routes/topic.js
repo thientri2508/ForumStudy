@@ -64,8 +64,6 @@ router.put('/:id', verifyToken, async (req, res) => {
 			image
 		}
 
-		console.log(req.params.id)
-
 		const topicUpdateCondition = { _id: req.params.id, user: req.userId }
 
 		updatedTopic = await Topic.findOneAndUpdate(

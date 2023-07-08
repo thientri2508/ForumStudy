@@ -39,8 +39,11 @@ const ListPost = () => {
 			<Loader></Loader>
 		)
 	} else if (posts.length === 0) {
-        document.getElementById("AllPosts").style.color="#C38077"
-        document.getElementById("AllPosts").style.fontSize="22px"
+        var title = document.getElementById("AllPosts")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='post'>
@@ -69,8 +72,11 @@ const ListPost = () => {
             </div>
 		)
 	} else {
-        document.getElementById("AllPosts").style.color="#C38077"
-        document.getElementById("AllPosts").style.fontSize="22px"
+        var title = document.getElementById("AllPosts")
+        if(title) {
+            title.style.color="#C38077"
+            title.style.fontSize="22px"
+        }
 		body = (
             <div className='container'>
                 <div className='post'>

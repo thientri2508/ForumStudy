@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app);
-const io = require('socket.io')(server, { cors: { origin: "*"}})
+const io = require('socket.io')(server, { cors: { origin: "*", methods: [ "GET", "POST" ]}})
 const mongoose = require('mongoose')
 const cors = require('cors')
 
@@ -12,6 +12,7 @@ const postRouter = require('./routes/post')
 const commentRouter = require('./routes/comment')
 const replyRouter = require('./routes/reply')
 const likeRouter = require('./routes/like')
+const roomRouter = require('./routes/room')
 const uploadRouter = require('./upload')
 
 const connectDB = async () => {
@@ -41,6 +42,7 @@ app.use('/api/auth', authRouter)
 app.use('/api/posts', postRouter)
 app.use('/api/comments', commentRouter)
 app.use('/api/likes', likeRouter)
+app.use('/api/rooms', roomRouter)
 app.use('/api/upload', uploadRouter)
 app.use('/api/replies', replyRouter)
 
