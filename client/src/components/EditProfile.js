@@ -90,6 +90,7 @@ const EditProfile = ({user}) => {
 
     const CloseEditProfile =  () => {
         setShowEditProfile(false)
+        UpdateProfileAvatar()
         document.documentElement.style.overflow = 'auto';
         var img = document.getElementById("img-avatar")
         var fileInput = document.getElementById("file-avatar");

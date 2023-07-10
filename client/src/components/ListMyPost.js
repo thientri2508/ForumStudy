@@ -26,6 +26,7 @@ const ListMyPost = () => {
             return window.location.href = "/auth";
         } else{
             setShowAddPostModal(true)
+            document.documentElement.style.overflow = 'hidden';
         }
     }
 
@@ -57,6 +58,11 @@ const ListMyPost = () => {
             title.style.color="#C38077"
             title.style.fontSize="22px"
         }
+        var titleMobile = document.getElementById("category-menu-mobile")
+        if(titleMobile) {
+            titleMobile.value = "/myposts"
+        }
+
 		body = (
             <div className='container'>
                 <div className='post'>
@@ -90,6 +96,11 @@ const ListMyPost = () => {
             title.style.color="#C38077"
             title.style.fontSize="22px"
         }
+        var titleMobile = document.getElementById("category-menu-mobile")
+        if(titleMobile) {
+            titleMobile.value = "/myposts"
+        }
+        
 		body = (
             <div className='container'>
                 <div className='post'>

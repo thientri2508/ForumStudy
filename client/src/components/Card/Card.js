@@ -1,5 +1,6 @@
 import React from 'react';
 import './Card.css';
+import { faDisplay } from '@fortawesome/free-solid-svg-icons';
 
 const Card = ({UpdateProfileForm, posts, likes}) => {
     return (
@@ -19,7 +20,12 @@ const Card = ({UpdateProfileForm, posts, likes}) => {
                 <span class="quantity"> { likes ? likes : "0" } </span>
                 <span class="text text--2"> Likes </span>
             </div>
-            <div class="item item--4" onClick={UpdateProfileForm}>
+            <div class="item item--4" onClick={UpdateProfileForm} id='largeScreen'>
+                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path fill="rgba(220,91,183,1)" d="M12 20h8v2h-8C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10a9.956 9.956 0 0 1-2 6h-2.708A8 8 0 1 0 12 20zm0-10a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
+                <span class="quantity" style={{fontSize: '22px'}}> Edit  </span>
+                <span class="text text--4"> Profile </span>
+            </div>
+            <div class="item item--4" id='smallScreen'>
                 <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path fill="rgba(220,91,183,1)" d="M12 20h8v2h-8C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10a9.956 9.956 0 0 1-2 6h-2.708A8 8 0 1 0 12 20zm0-10a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm8 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-4 4a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"></path></svg>
                 <span class="quantity" style={{fontSize: '22px'}}> Edit  </span>
                 <span class="text text--4"> Profile </span>

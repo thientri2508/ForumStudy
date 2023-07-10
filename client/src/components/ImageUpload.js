@@ -9,51 +9,53 @@ const ImageUpload = ({ selectedImages, setSelectedImages, selectedVideos, setSel
     const handleImageSelect = async (event) => {
       setLoading(true)
       const files = event.target.files;
-      const selectedFiles = [];
-      const selectedImagesArray = [];
-      const selectedVideosArray = [];
-      let nameFile = '';
-  
-      for (let i = 0; i < files.length; i++) {
-          const image_file = files[i];
-          const fileType = image_file.type;
-          if (fileType.startsWith('image/')) {
-            const res = await image_to_base64(image_file)
-            if (res) {
-              const resized = await reduce_image_file_size(res)
-              selectedImagesArray.push(resized)
-            }
-            
-            const new_image_file = await processImage(image_file);
-            selectedFiles.push(new_image_file);
+      if(files.length != 0) {
+        const selectedFiles = [];
+        const selectedImagesArray = [];
+        const selectedVideosArray = [];
+        let nameFile = '';
     
-            nameFile += new_image_file.name + '/';
-          } else if (fileType.startsWith('video/')) {
-                // Đây là file video
-                const videoURL = URL.createObjectURL(image_file)
-                selectedVideosArray.push(videoURL)
-              
-                const newFileName = uuidv4() + '.mp4'
+        for (let i = 0; i < files.length; i++) {
+            const image_file = files[i];
+            const fileType = image_file.type;
+            if (fileType.startsWith('image/')) {
+                const res = await image_to_base64(image_file)
+                if (res) {
+                const resized = await reduce_image_file_size(res)
+                selectedImagesArray.push(resized)
+                }
+                
+                const new_image_file = await processImage(image_file);
+                selectedFiles.push(new_image_file);
+        
+                nameFile += new_image_file.name + '/';
+            } else if (fileType.startsWith('video/')) {
+                    // Đây là file video
+                    const videoURL = URL.createObjectURL(image_file)
+                    selectedVideosArray.push(videoURL)
+                
+                    const newFileName = uuidv4() + '.mp4'
 
-                try {
-                const fileData = await readFileAsync(image_file);
+                    try {
+                    const fileData = await readFileAsync(image_file);
 
-                const blob = new Blob([fileData], { type: image_file.type });
-                const newFile = new File([blob], newFileName, { type: image_file.type });
-                selectedFiles.push(newFile)
-                } catch (error) {
-                console.error('Lỗi khi đọc file:', error);
-                }  
-                nameFile += newFileName + '/';
-          } else {
-              // Loại file không được hỗ trợ
-              console.log('Loại file không được hỗ trợ:', image_file);
-          }
+                    const blob = new Blob([fileData], { type: image_file.type });
+                    const newFile = new File([blob], newFileName, { type: image_file.type });
+                    selectedFiles.push(newFile)
+                    } catch (error) {
+                    console.error('Lỗi khi đọc file:', error);
+                    }  
+                    nameFile += newFileName + '/';
+            } else {
+                // Loại file không được hỗ trợ
+                console.log('Loại file không được hỗ trợ:', image_file);
+            }
+        }
+        setSelectedFiles(selectedFiles)
+        setSelectedImages(selectedImagesArray)
+        setSelectedVideos(selectedVideosArray)
+        setPostForm({ ...PostForm, file: nameFile })
       }
-      setSelectedFiles(selectedFiles)
-      setSelectedImages(selectedImagesArray)
-      setSelectedVideos(selectedVideosArray)
-      setPostForm({ ...PostForm, file: nameFile })
       setLoading(false)
   };
 

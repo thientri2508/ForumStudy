@@ -26,12 +26,14 @@ const AddPostModal = () => {
 
     const handleChangeContent = (event) => {
         setPostForm({...PostForm, content: event.target.value})
-        if(event.target.value != "") {
-            document.getElementById("btn-post-submit-none").style.display='none'
-        } else{
-            document.getElementById("btn-post-submit-none").style.display='block'
-        }
     };
+
+    var btn = document.getElementById("btn-post-submit-none")
+    if(content != "") {
+        if(btn) btn.style.display='none'
+    } else{
+        if(btn) btn.style.display='block'
+    }
 
     const handleChangeTopic = (value) => {
         setPostForm({...PostForm, topic: value})
@@ -81,9 +83,7 @@ const AddPostModal = () => {
     }
 
     const CloseCreatePost =  () => {
-        setPostForm({...PostForm, content: ""})
-        setPostForm({...PostForm, file: ""})
-        document.getElementById("btn-post-submit-none").style.display='block'
+        setPostForm({...PostForm, content: "", file: ""})
         setOff()
         setSelectedImages([]);
         setSelectedVideos([]);
@@ -99,7 +99,7 @@ const AddPostModal = () => {
             document.getElementById("AddPostModal-form").style.overflowY='auto'
             document.getElementById("input-title").style.height='65px'
             document.getElementById("AddPostModal").style.height='590px'
-            document.getElementById("AddPostModal").style.top='70px'
+            document.getElementById("AddPostModal").style.top='5%'
             document.getElementById("selectFile").classList.add('disabled');
             document.getElementById("input-title").style.fontSize='16px'
             setToggleFile(true)
@@ -112,7 +112,7 @@ const AddPostModal = () => {
         document.getElementById("AddPostModal-form").style.overflowY='visible'
         document.getElementById("input-title").style.height='150px'
         document.getElementById("AddPostModal").style.height='430px'
-        document.getElementById("AddPostModal").style.top='158px'
+        document.getElementById("AddPostModal").style.top='15%'
         document.getElementById("selectFile").classList.remove('disabled');
         document.getElementById("input-title").style.fontSize='25px'
         setToggleFile(false)
@@ -171,25 +171,25 @@ const AddPostModal = () => {
                     </li>
                 </ul>
                 
-                    <div id='AddPostModal-form'> 
-                        <textarea id="input-title" placeholder="Write contents..." value={content} onChange={handleChangeContent}></textarea>
-                        <div id='input-file'>
-                            <ImageUpload setLoading={setLoading} setPostForm={setPostForm} PostForm={PostForm} selectedImages={selectedImages} setSelectedImages={setSelectedImages} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} handleClearImages={handleClearImages} setOff={setOff} setSelectedFiles={setSelectedFiles} />
-                            {/* <div onClick={handleClearImages}>Clear Images</div> */}
-                        </div>
+                <div id='AddPostModal-form'> 
+                    <textarea id="input-title" placeholder="Write contents..." value={content} onChange={handleChangeContent}></textarea>
+                    <div id='input-file'>
+                        <ImageUpload setLoading={setLoading} setPostForm={setPostForm} PostForm={PostForm} selectedImages={selectedImages} setSelectedImages={setSelectedImages} selectedVideos={selectedVideos} setSelectedVideos={setSelectedVideos} handleClearImages={handleClearImages} setOff={setOff} setSelectedFiles={setSelectedFiles} />
+                        {/* <div onClick={handleClearImages}>Clear Images</div> */}
                     </div>
-                    <div className='AddIcon'>
-                        <h3>Add to your post</h3>
-                        <ul className='ChooseOption'>
-                            <li onClick={toggleInputFile} id='selectFile'><img src={ require('../image/picture.png') }></img></li>
-                            <li id='selectIcon'><img src={ require('../image/happiness.png') }></img></li>
-                            <li id='selectGif'><img src={ require('../image/gif.png') }></img></li>
-                        </ul>
-                    </div>
-                    <div className='btn-post-submit'>
-                        <button type='submit'>Post</button>
-                        <div id='btn-post-submit-none'>Post</div>
-                    </div>
+                </div>
+                <div className='AddIcon'>
+                    <h3>Add to your post</h3>
+                    <ul className='ChooseOption'>
+                        <li onClick={toggleInputFile} id='selectFile'><img src={ require('../image/picture.png') }></img></li>
+                        <li id='selectIcon'><img src={ require('../image/happiness.png') }></img></li>
+                        <li id='selectGif'><img src={ require('../image/gif.png') }></img></li>
+                    </ul>
+                </div>
+                <div className='btn-post-submit'>
+                    <button type='submit'>Post</button>
+                    <div id='btn-post-submit-none'>Post</div>
+                </div>
                     
                 </form>
             </div>

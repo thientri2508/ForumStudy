@@ -20,14 +20,13 @@ const ItemListMeeting = ({room}) => {
         avatar = (<img src={room.user.avatar} className='avatar2' ></img>)
     }
     return (
-        <li className='item-topic' style={{height: '435px'}}>
+        <li className='item-topic' style={{height: '460px'}}>
             <div className='meeting-header'>
                 <button className='btn-joinRoom' onClick={() => JoinRoom(room._id)}>Join Now</button>
                 <img src={ require(`../image/meeting.jpg`) } className='img-meeting' ></img>
             </div>
             <div className='title-topic'>
-                <p className='title-topic-text'>{room.name}</p>
-                <p>Follow</p>
+                <p className='title-room-text'>{room.name}</p>
             </div>
             <ul className='meeting-author'>
                 <li>{avatar}</li>
@@ -40,7 +39,7 @@ const ItemListMeeting = ({room}) => {
                         <li>{room.date}</li>
                     </ul>
                 </li>
-                <li>
+                <li style={{width: '63%'}}>
                     <ul className='metting-clock'>
                         <img src={ require(`../image/clock.png`) }></img>
                         <li>{room.time}</li>

@@ -44,6 +44,11 @@ const ListPost = () => {
             title.style.color="#C38077"
             title.style.fontSize="22px"
         }
+        var titleMobile = document.getElementById("category-menu-mobile")
+        if(titleMobile) {
+            titleMobile.value = "/all-posts"
+        }
+        
 		body = (
             <div className='container'>
                 <div className='post'>
@@ -77,6 +82,11 @@ const ListPost = () => {
             title.style.color="#C38077"
             title.style.fontSize="22px"
         }
+        var titleMobile = document.getElementById("category-menu-mobile")
+        if(titleMobile) {
+            titleMobile.value = "/all-posts"
+        }
+
 		body = (
             <div className='container'>
                 <div className='post'>

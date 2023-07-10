@@ -27,7 +27,7 @@ export const topicReducer = (state, action) => {
 		case ADD_TOPIC:
 			return {
 				...state,
-				topics: [...state.topics, payload]
+				topics: [payload, ...state.topics]
 			}
 
 		case DELETE_TOPIC:

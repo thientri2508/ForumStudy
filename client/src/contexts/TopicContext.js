@@ -11,7 +11,7 @@ import {
 } from './constants'
 import axios from 'axios'
 
-export const TopicContext = createContext()
+export const TopicContext = createContext() 
 
 const TopicContextProvider = ({ children }) => {
 	// State
@@ -20,6 +20,8 @@ const TopicContextProvider = ({ children }) => {
 		topics: [],
 		topicsLoading: true
 	})
+
+	const [showAddTopic, setShowAddTopic] = useState(false)
 
 	// Get all topics
 	const getTopics = async () => {
@@ -89,6 +91,8 @@ const TopicContextProvider = ({ children }) => {
 	// Post context data
 	const topicContextData = {
 		topicState,
+		showAddTopic,
+		setShowAddTopic,
 		getTopics,
 		addTopic,
 		deleteTopic,

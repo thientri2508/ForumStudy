@@ -4,6 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 const Category = () => {
+
+    const PageDirect = (event) => {
+        return window.location.href = event.target.value
+    }
+
     return (
         <div className='container'>
             <div className='category'>
@@ -12,10 +17,10 @@ const Category = () => {
                     <a href="/all-posts"><li className='category-menu-item' id='AllPosts'>All Posts</li></a>
                     <a href="/myposts"><li className='category-menu-item' id='MyPosts'>My Posts</li></a>
                 </ul>
-                <select className='category-menu-mobile'>
-                    <option>Topics</option>
-                    <option>All Posts</option>
-                    <option>My Posts</option>
+                <select id='category-menu-mobile' onChange={PageDirect}>
+                    <option value="/topics">Topics</option>
+                    <option value="/all-posts">All Posts</option>
+                    <option value="/myposts">My Posts</option>
                 </select>
                 <div className='search'>
                     <input

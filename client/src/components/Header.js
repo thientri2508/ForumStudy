@@ -46,7 +46,7 @@ const Header = () => {
                     <ul className='list'>
                         <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item' onClick={() => navigate('/meeting')}>Meeting</li>
+                        <li className='menu-list-item' onClick={() => navigate('/meeting')} id='nomeeting'>Meeting</li>
                         <li className='menu-list-item' onClick={OpenEditProfile}>{avatar}</li>
                         <li className='logout' onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} size="xl" /></li>
                         <li className='menu-list-item'>
@@ -72,8 +72,8 @@ const Header = () => {
                     <ul className='list'>
                         <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item' onClick={() => navigate('/meeting')}>Meeting</li>
-                        <a href='/auth'><li className='menu-list-item'><FontAwesomeIcon icon={faCircleUser} size="2xl" />&nbsp;&nbsp;&nbsp;&nbsp;Log In</li></a>
+                        <li className='menu-list-item' onClick={() => navigate('/meeting')} id='nomeeting'>Meeting</li>
+                        <a href='/auth'><li className='menu-list-item'>Log In</li></a>
                         <li className='menu-list-item'>
                             <ul className='share'>
                                 <li><i class="fa-brands fa-facebook-f fa-xl"></i></li>
