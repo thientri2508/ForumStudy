@@ -1,11 +1,12 @@
-import React from 'react';
-import ItemListTopic from './ItemListTopic';
+import React from 'react'
+import ItemListTopic from './ItemListTopic'
 import { TopicContext } from '../contexts/TopicContext'
 import { PostContext } from '../contexts/PostContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext, useEffect } from 'react'
 import Loader from '../components/Loader'
-import AddTopic from './AddTopic';
+import AddTopic from './AddTopic'
+import UpdateTopic from './UpdateTopic'
 
 const Topic = () => {
 
@@ -14,7 +15,7 @@ const Topic = () => {
 	} = useContext(PostContext)
 
     const {
-		topicState: { topics, topicsLoading },
+		topicState: { topics, topic, topicsLoading },
 		getTopics,
         setShowAddTopic
 	} = useContext(TopicContext)
@@ -109,6 +110,7 @@ const Topic = () => {
     return (
         <>
             <AddTopic></AddTopic>
+            {topic !== null && <UpdateTopic />}
             {body}
         </>
     );

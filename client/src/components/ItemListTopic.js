@@ -12,7 +12,7 @@ const ItemListTopic = ({topic}) => {
 		authState: { authLoading, isAuthenticated, user }
 	} = useContext(AuthContext)
 
-    const { deleteTopic } = useContext(TopicContext)
+    const { deleteTopic, setShowUpdateTopic, findTopic } = useContext(TopicContext)
 
     const fnDeleteTopic = async (topicId) => {
         try {
@@ -22,10 +22,20 @@ const ItemListTopic = ({topic}) => {
 		}
     }
 
+    const chooseTopic = topicId => {
+		findTopic(topicId)
+		setShowUpdateTopic(true)
+        document.documentElement.style.overflow = 'hidden';
+	}
+
     let element = (<p>Follow</p>)
+    let btnDelete = (<></>)
     if(!authLoading) {
         if(isAuthenticated) {
-            if(user.role == 'ADMIN') element = (<p onClick={() => {fnDeleteTopic(topic._id)}}>Delete</p>)
+            if(user.role == 'ADMIN') {
+                element = ( <p className='btnEditTopic' onClick={() => {chooseTopic(topic._id)}}>Edit</p> )
+                btnDelete = ( <p className='btnDeleteTopic' onClick={() => {fnDeleteTopic(topic._id)}}>Delete</p> )
+            }
         }
     }
 
@@ -38,9 +48,12 @@ const ItemListTopic = ({topic}) => {
                     {element}
                 </div>
                 <div className='interact-topic'>
-                    <FontAwesomeIcon icon={faEye} size='lg' style={{marginRight: "23px"}} />
-                    <FontAwesomeIcon icon={faSignsPost} size='lg' style={{marginRight: "8px"}} />
-                    <span>3</span>
+                    <div>
+                        <FontAwesomeIcon icon={faEye} size='lg' style={{marginRight: "23px"}} />
+                        <FontAwesomeIcon icon={faSignsPost} size='lg' style={{marginRight: "8px"}} />
+                        <span>3</span>
+                    </div>
+                    {btnDelete}
                 </div>
                 <div className='description-topic'>
                     {topic.description}

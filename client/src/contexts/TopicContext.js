@@ -22,6 +22,7 @@ const TopicContextProvider = ({ children }) => {
 	})
 
 	const [showAddTopic, setShowAddTopic] = useState(false)
+	const [showUpdateTopic, setShowUpdateTopic] = useState(false)
 
 	// Get all topics
 	const getTopics = async () => {
@@ -93,6 +94,8 @@ const TopicContextProvider = ({ children }) => {
 		topicState,
 		showAddTopic,
 		setShowAddTopic,
+		showUpdateTopic,
+		setShowUpdateTopic,
 		getTopics,
 		addTopic,
 		deleteTopic,

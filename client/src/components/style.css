@@ -340,6 +340,13 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+.btnDeleteTopic{
+    cursor: pointer;
+}
+.btnDeleteTopic:hover{
+    color: #C38077;
 }
 .description-topic{
     width: 80%;
@@ -1199,7 +1206,6 @@ animation: swing2 var(--uib-speed) linear infinite;
     height: 40px;
     border: none;
     outline: none;
-    word-break: break-all;
     border-bottom: solid 1px;
 }
 #input-description-topic{
@@ -1209,7 +1215,6 @@ animation: swing2 var(--uib-speed) linear infinite;
     height: 55px;
     border: none;
     outline: none;
-    word-break: break-all;
 }
 #input-image-topic{
     width: 100%;
@@ -1522,7 +1527,7 @@ animation: swing2 var(--uib-speed) linear infinite;
     font-size: 18px;
     color: white;
 }
-#btn-post-submit-none, #btn-topic-submit-none{
+#btn-post-submit-none, #btn-topic-submit-none, #btn-topic-update-none{
     position: absolute;
     top: 0;
     left: 0;
@@ -1710,6 +1715,12 @@ animation: swing2 var(--uib-speed) linear infinite;
     float: none;
     margin: 0 auto;
 }
+.post-detail-interact > li{
+    font-size: 12px;
+}
+.post-detail-interactAmount{
+    font-size: 12px;
+}
 .list-topic{
     flex-direction: column;
     margin-left: 0px;
@@ -1811,6 +1822,12 @@ animation: swing2 var(--uib-speed) linear infinite;
     #AddTopic{
         top: 20px;
     }
+    .post-detail-interact > li{
+        font-size: 11px;
+    }
+    .post-detail-interactAmount{
+        font-size: 11px;
+    }
 }
 @media screen and (max-width: 320px) {
     .btn-post{
@@ -1821,5 +1838,14 @@ animation: swing2 var(--uib-speed) linear infinite;
     }
     #nomeeting{
         display: none;
+    }
+    .btnDeleteTopic, .btnEditTopic{
+        display: none;
+    }
+    .post-detail-interact > li{
+        font-size: 10px;
+    }
+    .post-detail-interactAmount{
+        font-size: 10px;
     }
 }
