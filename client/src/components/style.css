@@ -86,14 +86,15 @@
 .num-notification{
     position: absolute;
     font-weight: bold;
-    width: 20px;
-    height: 20px;
-    line-height: 20px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
     border-radius: 50%;
     background: red;
     top: -5px;
     user-select: none;
+    font-size: 12px;
 }
 .notification:hover{
     background: #CFCFCF;
