@@ -21,7 +21,7 @@ const CountNotification = ({user, socket}) => {
 
     let body = (<></>)
     if(num != 0) body = (<span className='num-notification'>{num}</span>)
-    else if(num > 9) body = (<span className='num-notification'>9+</span>)
+    if(num > 9) body = (<span className='num-notification'>9+</span>)
 
     return ( 
         <>
