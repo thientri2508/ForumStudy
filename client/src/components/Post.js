@@ -13,6 +13,7 @@ import ListComment from './ListComment';
 import Interact from './Interact';
 import io from 'socket.io-client';
 import {apiUrl} from '../contexts/constants'
+import axios from 'axios'
 
 const socket = io('http://localhost:5000');
     socket.on("connect", () => {
@@ -51,15 +52,31 @@ const Post = () => {
         setComment(event.target.value)
     };
 
-    const sendComment = async () => {
+    const getCurrentDate = () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const day = currentDate.getDate();
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+
+        return `${hours}h:${minutes}m ${day}-${month}-${year}`;
+    }
+
+    const sendComment = async (idReceiver) => {
         if(!isAuthenticated) {
             return window.location.href = "/auth";
         }
 		try {
             const newComment = { content: comment, post: post._id }
-			const commentData = await addComment(newComment)
+			await addComment(newComment)
             socket.emit("commented", "commentData")
             setComment("")
+            if(user._id != idReceiver) {
+                const newNotification = { receiver: idReceiver, post: postId, message: ' commented on one of your posts', date: getCurrentDate(), status: 'not seen'}
+                await axios.post(`${apiUrl}/notifications`, newNotification)
+                socket.emit("notification", "notificationData")
+            }
 		} catch (error) {
 			console.log(error)
 		}
@@ -202,7 +219,7 @@ const Post = () => {
 
                     <h3>Comments</h3>
                     <textarea rows={2} value={comment} onChange={handleChange} className='text-comment' placeholder='Write a comments...'></textarea>
-                    <input type="submit" className="btn-comment" value="Publish" onClick={sendComment}></input>
+                    <input type="submit" className="btn-comment" value="Publish" onClick={() => {sendComment(post.user._id)}}></input>
 
                     <ListComment postId={postId} socket={socket} replies={replies} post={postId} ></ListComment>
                 </div>

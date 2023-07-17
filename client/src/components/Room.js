@@ -28,11 +28,11 @@ const Room = () => {
       body = ( <Loader></Loader> )
     } else if(isAuthenticated) {
         var checkId = false
-        for(let i=0 ; i<rooms.length ; i++){
-          if(roomID == rooms[i]._id) {
-            checkId = true
-            break
-          }
+        for(const room of rooms){
+          if(roomID == room._id) {
+                checkId = true
+                break
+              }
         }
         if(checkId) {
             const meeting = async (element) => {

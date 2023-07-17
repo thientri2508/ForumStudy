@@ -8,7 +8,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 2;
+    z-index: 10;
 }
 .avatar{
     width: 50px;
@@ -63,11 +63,76 @@
 }
 .logout{
     cursor: pointer;
+    background: #e8e8e8;
+    border-radius: 50%;
+    padding: 12px;
     margin-right: 20px;
 }
 .logout:hover{
-    color: #C38077;
-    transition: all 0.2s linear;
+    background: #CFCFCF;
+}
+.notification{
+    cursor: pointer;
+    background: #e8e8e8;
+    border-radius: 50%;
+    /* width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px; */
+    padding: 12px;
+    position: relative;
+    margin-right: 20px;
+}
+.num-notification{
+    position: absolute;
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background: red;
+    top: -5px;
+    user-select: none;
+}
+.notification:hover{
+    background: #CFCFCF;
+}
+.list-notification{
+    position: absolute;
+    width: 360px;
+    max-height: 630px;
+    background: #e8e8e8;
+    top: 62px;
+    right: 140px;
+    overflow-y: auto;
+    padding: 20px 8px 20px 8px;
+    border-radius: 10px;
+}
+.list-notification::-webkit-scrollbar {
+    width: 10px;
+}
+.list-notification::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to bottom, #ddd, #ddd);
+    border-radius: 100rem;
+}
+.item-list-notification{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px 8px 10px 8px;
+    border-radius: 10px;
+}
+.item-list-notification:hover{
+    background: #CFCFCF;
+}
+.check-notification{
+    width: 15px;
+    height: 12px;
+    border-radius: 50%;
+    background: #2E89FF;
+    margin-left: 10px;
 }
 .share{
     display: flex;
@@ -1688,6 +1753,12 @@ animation: swing2 var(--uib-speed) linear infinite;
     padding-top: 25px;
     padding-bottom: 25px;
     font-size: 22px;
+}
+.notification{
+    display: none;
+}
+.logout{
+    padding: 20px;
 }
 .header label{
     display: inline-flex;

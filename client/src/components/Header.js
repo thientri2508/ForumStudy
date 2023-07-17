@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css';
 import logoIcon from '../image/logo.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleUser, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faCircleUser, faRightFromBracket, faBell } from '@fortawesome/free-solid-svg-icons'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext } from 'react'
 import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import EditProfile from './EditProfile';
+import ListNotification from './ListNotification';
+import CountNotification from './CountNotification';
+import axios from 'axios'
+import { apiUrl } from '../contexts/constants'
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
+    socket.on("connect", () => {
+    })
 
 const Header = () => {
     const navigate = useNavigate()
+
+    const [showNotification, setShowNotification] = useState(false)
 
     const {
 		authState: { authLoading, isAuthenticated, user },
@@ -23,6 +34,26 @@ const Header = () => {
     const OpenEditProfile =  () => {
         setShowEditProfile(true)
         document.documentElement.style.overflow = 'hidden';
+    }
+
+    const toggleNotification = async () => {
+        if(!showNotification) setShowNotification(!showNotification)
+        else {
+            setShowNotification(!showNotification)
+            try {
+                await axios.put(`${apiUrl}/notifications`)
+                socket.emit("notification", "notificationData")
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    var style
+    if(showNotification){
+        style = { display: 'block'}
+    } else {
+        style = { display: 'none'}
     }
 
     let body
@@ -48,6 +79,10 @@ const Header = () => {
                         <li className='menu-list-item'>Members</li>
                         <li className='menu-list-item' onClick={() => navigate('/meeting')} id='nomeeting'>Meeting</li>
                         <li className='menu-list-item' onClick={OpenEditProfile}>{avatar}</li>
+                        <li className='notification' onClick={toggleNotification}>
+                            <FontAwesomeIcon icon={faBell} size="xl" />
+                            <CountNotification user={user} socket={socket}></CountNotification>
+                        </li>
                         <li className='logout' onClick={logout}><FontAwesomeIcon icon={faRightFromBracket} size="xl" /></li>
                         <li className='menu-list-item'>
                             <ul className='share'>
@@ -57,6 +92,7 @@ const Header = () => {
                         </li>
                     </ul>
                 </div>
+                <ListNotification style={style} user={user} socket={socket} toggleNotification={toggleNotification}></ListNotification>
             </div>
             <EditProfile user={user}></EditProfile>
             </>

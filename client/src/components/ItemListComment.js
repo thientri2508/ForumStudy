@@ -6,6 +6,8 @@ import { CommentContext } from '../contexts/CommentContext'
 import { ReplyContext } from '../contexts/ReplyContext'
 import { useContext } from 'react'
 import ItemListReply from './ItemListReply';
+import {apiUrl} from '../contexts/constants'
+import axios from 'axios'
 
 const ItemListComment = ({comment, socket, replies, post}) => {
     
@@ -80,14 +82,30 @@ const ItemListComment = ({comment, socket, replies, post}) => {
         }
     }
 
+    const getCurrentDate = () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const day = currentDate.getDate();
+        const hours = currentDate.getHours();
+        const minutes = currentDate.getMinutes();
+
+        return `${hours}h:${minutes}m ${day}-${month}-${year}`;
+    }
+
     const reply = async (event) => {
         event.preventDefault()
         if(!isAuthenticated) {
             return window.location.href = "/auth";
         }
         try {
-			const newReply = await addReply(ReplyForm)
+			await addReply(ReplyForm)
             socket.emit("reply", "replyData")
+            if(user._id != comment.user._id) {
+                const newNotification = { receiver: comment.user._id, post: comment.post, message: ' responded to one of your comments', date: getCurrentDate(), status: 'not seen'}
+                await axios.post(`${apiUrl}/notifications`, newNotification)
+                socket.emit("notification", "notificationData")
+            }
 		} catch (error) {
 			console.log(error)
 		}
