@@ -88,6 +88,5 @@ GET http://localhost:5000/api/comments/6491e3d3cb46c6447820bb67
 Content-Type: application/json
 
 ###
-PUT http://localhost:5000/api/notifications/
+GET http://localhost:5000/api/notifications/64918fdfb58e96a70427ed5e
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDkxOGZkZmI1OGU5NmE3MDQyN2VkNWUiLCJpYXQiOjE2ODkxNDY4NjF9.wI9FQ9Nn2bm84glVOmwc4tezhgPa1VzHzWGpeeNHSlc

@@ -92,7 +92,7 @@ router.post('/', verifyToken, async (req, res) => {
 		})
 
 		await newPost.save()
-		const post = await Post.findById(newPost._id).populate('user', ['fullname']).populate('topic', ['title'])
+		const post = await Post.findById(newPost._id).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
 		res.json({ success: true, message: 'Post Success!', post: post })
 	} catch (error) {
 		console.log(error)

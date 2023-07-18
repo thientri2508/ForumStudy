@@ -6,7 +6,7 @@ const Notification = require('../models/Notification')
 
 router.get('/:id', async (req, res) => {
 	try {
-		const notifications = await Notification.find({ receiver: req.params.id }).sort({ _id: -1 }).populate('sender', ['fullname', 'avatar'])
+		const notifications = await Notification.find({ receiver: req.params.id }).sort({ _id: -1 }).limit(9).populate('sender', ['fullname', 'avatar'])
 		res.json({ success: true, notifications })
 	} catch (error) {
 		console.log(error)
