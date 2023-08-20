@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Layout from './views/Layout';
 import Auth from './views/Auth';
 import Topic from './components/Topic';
-import Room from './components/Room';
+// import Room from './components/Room';
 import Meeting from './views/Meeting';
 import ListPost from './components/ListPost';
 import ListPostByTopic from './components/ListPostByTopic';
@@ -43,7 +43,7 @@ root.render(
           
           <Route path="/auth" element={<Auth />}></Route>
           <Route path="/meeting" element={<Meeting />}></Route>
-          <Route path="/meeting/room/:id" element={<Room />}></Route>
+          {/* <Route path="/meeting/room/:id" element={<Room />}></Route> */}
         </Routes>
       </BrowserRouter> 
     </React.StrictMode>

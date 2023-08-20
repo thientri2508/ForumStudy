@@ -22,7 +22,7 @@ const ItemListMeeting = ({room}) => {
     return (
         <li className='item-topic' style={{height: '460px'}}>
             <div className='meeting-header'>
-                <button className='btn-joinRoom' onClick={() => JoinRoom(room._id)}>Join Now</button>
+                <button className='btn-joinRoom'>Join Now</button>
                 <img src={ require(`../image/meeting.jpg`) } className='img-meeting' ></img>
             </div>
             <div className='title-topic'>
