@@ -1,12 +1,11 @@
-export const apiUrl =
-	process.env.NODE_ENV !== 'production'
-		? 'http://localhost:5000/api'
-		: 'https://forumstudy-server.onrender.com/api'
+// export const apiUrl = 
+// 	process.env.NODE_ENV !== 'production'
+// 		? 'http://localhost:5000/api'
+// 		: 'https://forumstudy-server.onrender.com/api'
 
-export const serverURL =
-process.env.NODE_ENV !== 'production'
-	? 'http://localhost:5000'
-	: 'https://forumstudy-server.onrender.com'
+export const apiUrl = 'https://forumstudy-server.onrender.com/api'
+
+export const serverURL = 'https://forumstudy-server.onrender.com'
 
 export const LOCAL_STORAGE_TOKEN_NAME = 'web-forum'
 
