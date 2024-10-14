@@ -14,8 +14,9 @@ import Interact from './Interact';
 import io from 'socket.io-client';
 import {apiUrl} from '../contexts/constants'
 import axios from 'axios'
+import { serverURL } from '../contexts/constants';
 
-const socket = io('http://localhost:5000');
+const socket = io(`${serverURL}`);
     socket.on("connect", () => {
         console.log("connected")
     })

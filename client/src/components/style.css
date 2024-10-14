@@ -269,6 +269,26 @@
     display: block;
     border-radius: 5px;
 }
+#btn-page{
+    width: 150px;
+    height: 35px;
+    outline: none;
+    color: white;
+    background: black;
+    display: block;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+#btn-page-loading{
+    width: 45px;
+    height: 35px;
+    display: none; 
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
 .list-topic{
     clear: both;
     display: flex;

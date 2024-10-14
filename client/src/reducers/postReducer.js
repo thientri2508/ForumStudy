@@ -1,6 +1,8 @@
 import {
 	POSTS_LOADED_SUCCESS,
+	POSTS_PAGE_LOADED_SUCCESS,
 	POSTS_LOADED_FAIL,
+	POSTS_PAGE_LOADED_FAIL,
 	ADD_POST,
 	DELETE_POST,
 	UPDATE_POST,
@@ -26,6 +28,19 @@ export const postReducer = (state, action) => {
 				postsLoading: false
 			}
 
+		case POSTS_PAGE_LOADED_SUCCESS:
+			return {
+				...state,
+				posts: [...state.posts, ...payload],
+				btnSeeMore: true
+			}
+
+		case POSTS_PAGE_LOADED_FAIL:
+			return {
+				...state,
+				btnSeeMore: false
+			}	
+		
 		case GET_POST_BY_ID_SUCCESS:
 			return {
 				...state,

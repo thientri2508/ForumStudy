@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faComment } from '@fortawesome/free-solid-svg-icons'
 import ItemListPost from './ItemListPost';
@@ -7,11 +7,15 @@ import { PostContext } from '../contexts/PostContext'
 import { AuthContext } from '../contexts/AuthContext'
 import { useContext, useEffect } from 'react'
 import Loader from '../components/Loader';
+import DotLoading from '../components/DotLoading'
 import SortBy from './SortBy';
 const ListPost = () => {
+
+    const [page, setPage] = useState(2)
     const {
-		postState: { posts, postsLoading },
+		postState: { posts, btnSeeMore, postsLoading },
 		getPosts,
+        getPostsByPage,
 		setShowAddPostModal
 	} = useContext(PostContext)
 
@@ -26,6 +30,20 @@ const ListPost = () => {
             setShowAddPostModal(true)
             document.documentElement.style.overflow = 'hidden';
         }
+    }
+
+    const NextPage = async () => {
+        document.getElementById("btn-page").style.display='none'
+        document.getElementById("btn-page-loading").style.display='block'
+        try {
+			await getPostsByPage(page) 
+            var p = page + 1
+            setPage(p)
+		} catch (error) {
+			console.log(error)
+		}
+        document.getElementById("btn-page-loading").style.display='none'
+        document.getElementById("btn-page").style.display='block'
     }
 
     useEffect(() => {
@@ -77,6 +95,9 @@ const ListPost = () => {
             </div>
 		)
 	} else {
+        // if(!btnSeeMore) {
+        //     document.getElementById("btn-page").style.display='block'
+        // }
         var title = document.getElementById("AllPosts")
         if(title) {
             title.style.color="#C38077"
@@ -119,8 +140,14 @@ const ListPost = () => {
                             <ItemListPostMobile key={post._id} post={post}></ItemListPostMobile>
                         ))}
                     </div>
-                
-                </div>
+                        
+                    { btnSeeMore ? (<button id='btn-page' onClick={NextPage}>See More</button>) : (<></>) }
+
+                    <div id='btn-page-loading'>
+                        <DotLoading></DotLoading>
+                    </div>
+
+                </div> 
             </div>
         )
     }

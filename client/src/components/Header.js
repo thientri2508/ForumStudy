@@ -11,10 +11,10 @@ import EditProfile from './EditProfile';
 import ListNotification from './ListNotification';
 import CountNotification from './CountNotification';
 import axios from 'axios'
-import { apiUrl } from '../contexts/constants'
+import { apiUrl, serverURL } from '../contexts/constants'
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:5000');
+const socket = io(`${serverURL}`);
     socket.on("connect", () => {
     })
 
@@ -75,9 +75,9 @@ const Header = () => {
                 <label for='toggler'><i class="fa-solid fa-bars fa-2xl"></i></label>
                 <div className='menu'>
                     <ul className='list'>
-                        <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
+                        <a href="/"><li className='menu-list-item'>Forum</li></a>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item' onClick={() => navigate('/meeting')} id='nomeeting'>Meeting</li>
+                        <li className='menu-list-item' id='nomeeting'>Meeting</li>
                         <li className='menu-list-item' onClick={OpenEditProfile}>{avatar}</li>
                         <li className='notification' onClick={toggleNotification}>
                             <FontAwesomeIcon icon={faBell} size="xl" />
@@ -104,11 +104,11 @@ const Header = () => {
                 <img src={logoIcon} className='logo'></img>
                 <input type='checkbox' id='toggler'></input>
                 <label for='toggler'><i class="fa-solid fa-bars fa-2xl"></i></label>
-                <div className='menu'>
+                <div className='menu'> 
                     <ul className='list'>
-                        <li className='menu-list-item' onClick={() => navigate('/')}>Forum</li>
+                        <a href="/"><li className='menu-list-item'>Forum</li></a>
                         <li className='menu-list-item'>Members</li>
-                        <li className='menu-list-item' onClick={() => navigate('/meeting')} id='nomeeting'>Meeting</li>
+                        <li className='menu-list-item' id='nomeeting'>Meeting</li>
                         <a href='/auth'><li className='menu-list-item'>Log In</li></a>
                         <li className='menu-list-item'>
                             <ul className='share'>

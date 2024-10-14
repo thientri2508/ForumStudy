@@ -8,7 +8,24 @@ const Post = require('../models/Post')
 // @access Public
 router.get('/', async (req, res) => {
 	try {
-		const posts = await Post.find().sort({ _id: -1 }).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
+		const posts = await Post.find().sort({ _id: -1 }).limit(2).populate('user', ['fullname', 'avatar']).populate('topic', ['title'])
+		res.json({ success: true, posts })
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({ success: false, message: 'Internal server error' })
+	}
+})
+
+router.get('/page/:index', async (req, res) => {
+	try {
+		const limit = 2
+		const posts = await Post.find()
+			.sort({ _id: -1 })
+			.skip((req.params.index-1)*limit)
+			.limit(limit)
+			.populate('user', ['fullname', 'avatar'])
+			.populate('topic', ['title'])
+
 		res.json({ success: true, posts })
 	} catch (error) {
 		console.log(error)

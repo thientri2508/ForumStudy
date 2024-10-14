@@ -4,6 +4,8 @@ import {
 	apiUrl,
 	POSTS_LOADED_FAIL,
 	POSTS_LOADED_SUCCESS,
+	POSTS_PAGE_LOADED_SUCCESS,
+	POSTS_PAGE_LOADED_FAIL,
 	ADD_POST,
 	DELETE_POST,
 	UPDATE_POST,
@@ -20,6 +22,7 @@ const PostContextProvider = ({ children }) => {
 	const [postState, dispatch] = useReducer(postReducer, {
 		post: null,
 		posts: [],
+		btnSeeMore: true,
 		postsLoading: true
 	})
 
@@ -40,6 +43,22 @@ const PostContextProvider = ({ children }) => {
 			}
 		} catch (error) {
 			dispatch({ type: POSTS_LOADED_FAIL }) 
+		}
+	}
+
+	// Get posts by page
+	const getPostsByPage = async (page) => {
+		try {
+			const response = await axios.get(`${apiUrl}/posts/page/${page}`)
+			if (response.data.success && response.data.posts.length) {
+				dispatch({ type: POSTS_PAGE_LOADED_SUCCESS, payload: response.data.posts })
+			} else {
+				dispatch({ type: POSTS_PAGE_LOADED_FAIL })
+			}
+		} catch (error) {
+			return error.response.data
+				? error.response.data
+				: { success: false, message: 'Server error' }
 		}
 	}
 
@@ -136,6 +155,7 @@ const PostContextProvider = ({ children }) => {
 	const postContextData = {
 		postState,
 		getPosts,
+		getPostsByPage,
 		getPostsByUser,
 		showAddPostModal,
 		setShowAddPostModal,

@@ -69,7 +69,7 @@ Authorization: Bearer
 
 ###
 
-GET http://localhost:5000/api/posts/idPost/6491e3d3cb46c6447820bb67
+GET http://localhost:5000/api/posts/page/2
 Content-Type: application/json
 
 ###

@@ -3,6 +3,8 @@ export const apiUrl =
 		? 'http://localhost:5000/api'
 		: 'https://sleepy-inlet-56101.herokuapp.com/api'
 
+export const serverURL = 'http://localhost:5000'
+
 export const LOCAL_STORAGE_TOKEN_NAME = 'web-forum'
 
 export const TOPICS_LOADED_SUCCESS = 'TOPICS_LOADED_SUCCESS'
@@ -14,6 +16,8 @@ export const FIND_TOPIC = 'FIND_TOPIC'
 
 export const POSTS_LOADED_SUCCESS = 'POSTS_LOADED_SUCCESS'
 export const POSTS_LOADED_FAIL = 'POSTS_LOADED_FAIL'
+export const POSTS_PAGE_LOADED_FAIL = 'POSTS_PAGE_LOADED_FAIL'
+export const POSTS_PAGE_LOADED_SUCCESS = 'POSTS_PAGE_LOADED_SUCCESS'
 export const GET_POST_BY_ID_SUCCESS = 'GET_POST_BY_ID_SUCCESS'
 export const GET_POST_BY_ID_FAIL = 'GET_POST_BY_ID_FAIL'
 export const ADD_POST = 'ADD_POST'
